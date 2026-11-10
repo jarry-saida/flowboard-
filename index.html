@@ -77,16 +77,16 @@
 
         <section class="flex flex-wrap items-start gap-5">
 
-            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4">
+            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" id="DivTodo">
 
                 <div class="flex items-center justify-between">
                     <h2 class=" text-slate-800">Todo</h2>
-                    <span class="rounded-full bg-white px-3 py-1 text-xs">12</span>
+                    <span class="rounded-full bg-white px-3 py-1 text-xs " id="countTodo"></span>
                 </div>
 
-                <div class="flex flex-col gap-3">
+                <!-- <div class="flex flex-col gap-3" >  -->
 
-                    <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
+                    <!-- <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
 
                         <h3 class=" text-slate-800">
                             Rédiger les user stories
@@ -115,19 +115,19 @@
                             </span>
                         </div>
 
-                    </article>
+                    </article> -->
 
-                </div>
+                <!-- </div> -->
             </div>
 
-            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4">
+            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" id="DivInProgress">
 
                 <div class="flex items-center justify-between">
                     <h2 class=" text-slate-800">In Progress</h2>
-                    <span class="rounded-full bg-white px-3 py-1 text-xs">6</span>
+                    <span class="rounded-full bg-white px-3 py-1 text-xs " id="countInProgress"></span>
                 </div>
 
-                <div class="flex flex-col gap-3">
+                <!-- <div class="flex flex-col gap-3">
 
                     <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
 
@@ -159,17 +159,17 @@
 
                     </article>
 
-                </div>
+                </div> -->
             </div>
 
-            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4">
+            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" id="DivDone">
 
                 <div class="flex items-center justify-between">
                     <h2 class=" text-slate-800">Done</h2>
-                    <span class="rounded-full bg-white px-3 py-1 text-xs">6</span>
+                    <span class="rounded-full bg-white px-3 py-1 text-xs " id="countDone"></span>
                 </div>
 
-                <div class="flex flex-col gap-3">
+                <!-- <div class="flex flex-col gap-3">
 
                     <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
 
@@ -201,7 +201,7 @@
 
                     </article>
 
-                </div>
+                </div> -->
             </div>
 
         </section>
@@ -211,8 +211,7 @@
     <footer class="mt-auto border-t bg-white p-4 text-center text-xs text-slate-500">
         © 2026 FlowBoard - Gestion des tâches
     </footer>
-
-    <script src="script.js"></script>
-
+    <script type="module" src="./app.js"></script>
+    <script type="module" src="ui.js"></script>
 </body>
 </html>
