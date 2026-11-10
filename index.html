@@ -207,10 +207,77 @@
         </section>
 
     </main>
-
     <footer class="mt-auto border-t bg-white p-4 text-center text-xs text-slate-500">
         © 2026 FlowBoard - Gestion des tâches
     </footer>
+<dialog id="cardModal">
+
+    <h2>Nouvelle carte</h2>
+
+    <form id="cardForm">
+
+        <!-- Titre -->
+        <label for="title">Titre de la tâche :</label>
+        <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Ex : Créer la page Login"
+            required
+            minlength="3"
+            maxlength="50"
+        >
+
+        <!-- Description -->
+        <label for="description">Description :</label>
+        <textarea
+            id="description"
+            name="description"
+            placeholder="Description de la tâche..."
+            required
+        ></textarea>
+
+        <!-- Priorité -->
+        <label for="priority">Priorité :</label>
+        <select id="priority" name="priority" required>
+            <option value="">Choisir une priorité</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+
+        <!-- Assigné -->
+        <label for="assignee">Assigné à :</label>
+        <input
+            type="text"
+            id="assignee"
+            name="assignee"
+            placeholder="Ex : Sara"
+            required
+        >
+
+        <!-- Statut -->
+        <label for="status">Statut :</label>
+        <select id="status" name="status" required>
+            <option value="todo">À faire</option>
+            <option value="in-progress">En cours</option>
+            <option value="done">Terminé</option>
+        </select>
+
+        <!-- Boutons -->
+        <div class="modal-actions">
+            <button type="button" id="closeModal">
+                Annuler
+            </button>
+
+            <button type="submit">
+                Ajouter la carte
+            </button>
+        </div>
+
+    </form>
+
+</dialog>
     <script type="module" src="./app.js"></script>
     <script type="module" src="ui.js"></script>
 </body>

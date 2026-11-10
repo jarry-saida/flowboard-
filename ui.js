@@ -77,13 +77,13 @@ const spanDoneCount = document.getElementById("countDone");
 // console.log(spanDoneCount,spanInProgressCount,spanTodoCount);
 function compteur (cards) {
     let TODO = cards.filter((card)=> card.status === "todo" );
-    console.log(TODO);
+    // console.log(TODO);
     spanTodoCount.textContent = TODO.length;
     let INPROGRESS = cards.filter((card)=> card.status === "in-progress" );
-    console.log(INPROGRESS);
+    // console.log(INPROGRESS);
     spanInProgressCount.textContent = INPROGRESS.length;
     let DONE = cards.filter((card)=> card.status === "done" );
-    console.log(DONE);
+    // console.log(DONE);
     spanDoneCount.textContent = DONE.length;
     
 }
