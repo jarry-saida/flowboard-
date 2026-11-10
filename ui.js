@@ -1,12 +1,16 @@
-
+import {loadCards, state} from "./app.js"
 const DivTodo = document.getElementById("DivTodo");
 // console.log(DivTodo);
 const DivInProgress = document.getElementById("DivInProgress");
 // console.log(DivInProgress);
 const DivDone = document.getElementById("DivDone");
 // console.log(DivDone);
-export function afficherCards(cards) {
+document.addEventListener("DOMContentLoaded", ()=>{loadCards(afficherCards)});
+
+
+function afficherCards(cards) {
     for (let i = 0; i < cards.length; i++) {
+        compteur (cards);
         if (cards[i].status === "todo") {
             DivTodo.innerHTML += `
     <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" id="DivTodo">
@@ -20,7 +24,7 @@ export function afficherCards(cards) {
                     </div>
                 <span class="text-xs text-slate-400">Échéance : ${cards[i].dueDate}</span>
              <div class="flex flex-wrap gap-2">
-                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">${cards[i].tags}</span>
+                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">${cards[i].tags.join(" ")}</span>
              </div>
             </article>
         </div>
@@ -39,7 +43,7 @@ export function afficherCards(cards) {
                     </div>
                 <span class="text-xs text-slate-400">Échéance : ${cards[i].dueDate}</span>
              <div class="flex flex-wrap gap-2">
-                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">${cards[i].tags}</span>
+                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">${cards[i].tags.join(" ")}</span>
              </div>
             </article>
         </div>
@@ -58,7 +62,7 @@ export function afficherCards(cards) {
                     </div>
                 <span class="text-xs text-slate-400">Échéance : ${cards[i].dueDate}</span>
              <div class="flex flex-wrap gap-2">
-                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">${cards[i].tags}</span>
+                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">${cards[i].tags.join(" ")}</span>
              </div>
             </article>
         </div>
@@ -66,6 +70,21 @@ export function afficherCards(cards) {
     `
         }
     }
-
+}
+const spanTodoCount = document.getElementById("countTodo");
+const spanInProgressCount = document.getElementById("countInProgress");
+const spanDoneCount = document.getElementById("countDone");
+// console.log(spanDoneCount,spanInProgressCount,spanTodoCount);
+function compteur (cards) {
+    let TODO = cards.filter((card)=> card.status === "todo" );
+    console.log(TODO);
+    spanTodoCount.textContent = TODO.length;
+    let INPROGRESS = cards.filter((card)=> card.status === "in-progress" );
+    console.log(INPROGRESS);
+    spanInProgressCount.textContent = INPROGRESS.length;
+    let DONE = cards.filter((card)=> card.status === "done" );
+    console.log(DONE);
+    spanDoneCount.textContent = DONE.length;
+    
 }
 
