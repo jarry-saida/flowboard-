@@ -1,16 +1,17 @@
-import {loadCards, state} from "./app.js"
+import {loadCards} from "./app.js"
 const DivTodo = document.getElementById("DivTodo");
 // console.log(DivTodo);
 const DivInProgress = document.getElementById("DivInProgress");
 // console.log(DivInProgress);
 const DivDone = document.getElementById("DivDone");
 // console.log(DivDone);
-document.addEventListener("DOMContentLoaded", ()=>{loadCards(afficherCards)});
-
+document.addEventListener("DOMContentLoaded", () => {
+    loadCards(afficherCards, Diverreur);
+});
 
 function afficherCards(cards) {
+    compteur (cards);
     for (let i = 0; i < cards.length; i++) {
-        compteur (cards);
         if (cards[i].status === "todo") {
             DivTodo.innerHTML += `
     <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" id="DivTodo">
@@ -86,5 +87,42 @@ function compteur (cards) {
     // console.log(DONE);
     spanDoneCount.textContent = DONE.length;
     
+}
+const btnOpenModal = document.getElementById("openModal");
+// console.log(btnOpenModal);
+const dialog = document.getElementById("cardModal");
+// console.log(dialog);
+btnOpenModal.addEventListener("click",()=>{
+    dialog.showModal();
+});
+const btnCloseModal = document.getElementById("closeModal");
+// console.log(btnCloseModal);
+btnCloseModal.addEventListener("click", () => {
+    dialog.close();
+});
+export function Diverreur() {
+    const DivErreur = document.getElementById("DivErreur");
+
+    let btnRéessayer = document.getElementById("btnRéessayer");
+
+    if (!btnRéessayer) {
+        const paragraphe = document.createElement("p");
+        paragraphe.textContent = "Une erreur est survenue lors du chargement des cartes.";
+        paragraphe.className = "text-red-600 mb-3";
+
+        btnRéessayer = document.createElement("button");
+        btnRéessayer.textContent = "Réessayer";
+        btnRéessayer.id = "btnRéessayer";
+        btnRéessayer.className = "bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700";
+
+        DivErreur.append(paragraphe, btnRéessayer);
+
+        btnRéessayer.addEventListener("click", () => {
+            DivErreur.hidden = true;
+            loadCards(afficherCards, Diverreur);
+        });
+    }
+
+    DivErreur.hidden = false;
 }
 
