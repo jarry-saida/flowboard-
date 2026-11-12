@@ -1,4 +1,4 @@
-export let state = [];
+// export let state = [];
 export function loadCards(afficherCards , Diverreur) {
   fetch("https://flowboard-api-virid.vercel.app/cards")
     .then((response) => {
@@ -8,7 +8,7 @@ export function loadCards(afficherCards , Diverreur) {
       return response.json();
     })
     .then((cards) => {
-      // console.log(cards);
+      //console.log(cards);
       afficherCards(cards);
     })
     .catch((error) => {
