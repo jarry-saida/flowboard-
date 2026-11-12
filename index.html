@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <title>FlowBoard</title>
 </head>
 
@@ -24,7 +25,19 @@
         </button>
 
     </header>
+        <div id="DivLoad" hidden class="flex flex-col items-center justify-center py-10">
 
+            <i class="fa-solid fa-sync fa-spin fa-bounce text-4xl text-green-700"></i>
+
+            <p class="mt-4 text-lg font-semibold text-gray-700">
+                Loading Cards...
+            </p>
+
+            <p class="mt-1 text-sm text-gray-400">
+                Please wait a moment ☕
+            </p>
+
+    </div>
     <main class="flex flex-col gap-6 p-5">
 
         <section class="flex flex-wrap items-end justify-between gap-4 rounded-lg bg-white p-5 shadow-sm">
@@ -63,11 +76,12 @@
                     class="rounded border border-slate-300 p-2 text-sm">
             </div>
 
-            <button type="button" class="rounded border border-slate-300 px-4 py-2 text-sm hover:bg-slate-100">
+            <button type="button" class="rounded border border-slate-300 px-4 py-2 text-sm hover:bg-slate-100" id="btnRénitialiser">
                 Réinitialiser
             </button>
 
         </section>
+        
         <div id="DivErreur" hidden>
 
         </div>
@@ -203,7 +217,6 @@
         </section>
 
     </main>
-
     <footer class="mt-auto border-t bg-white p-4 text-center text-xs text-slate-500">
         © 2026 FlowBoard - Gestion des tâches
     </footer>

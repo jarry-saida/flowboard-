@@ -1,4 +1,4 @@
-import { loadCards  } from "./app.js"
+import { loadCards, filters } from "./app.js"
 let state = [];
 const DivTodo = document.getElementById("DivTodo");
 // console.log(DivTodo);
@@ -6,17 +6,24 @@ const DivInProgress = document.getElementById("DivInProgress");
 // console.log(DivInProgress);
 const DivDone = document.getElementById("DivDone");
 // console.log(DivDone);
+const DivLoad = document.getElementById("DivLoad");
+
 document.addEventListener("DOMContentLoaded", () => {
-    loadCards((cards)=>{
+    DivLoad.hidden = false;
+    loadCards((cards) => {
+        DivLoad.hidden = true;
         afficherCards(cards);
         state = cards;
         // console.log(state);
     }, Diverreur);
-    
-    
+
+
 });
 
 function afficherCards(cards) {
+    DivTodo.innerHTML = "";
+    DivInProgress.innerHTML = "";
+    DivDone.innerHTML = "";
 
     compteur(cards);
     for (let i = 0; i < cards.length; i++) {
@@ -31,7 +38,7 @@ function afficherCards(cards) {
                     </div>
                 <span class="text-xs text-slate-400">Échéance : ${cards[i].dueDate}</span>
              <div class="flex flex-wrap gap-2">
-                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">${cards[i].tags.join(" ")}</span>
+                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">#${cards[i].tags.join(" ")}</span>
              </div>
             </article>
     `
@@ -46,7 +53,7 @@ function afficherCards(cards) {
                     </div>
                 <span class="text-xs text-slate-400">Échéance : ${cards[i].dueDate}</span>
              <div class="flex flex-wrap gap-2">
-                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">${cards[i].tags.join(" ")}</span>
+                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">#${cards[i].tags.join(" ")}</span>
              </div>
             </article>
     `
@@ -61,7 +68,7 @@ function afficherCards(cards) {
                     </div>
                 <span class="text-xs text-slate-400">Échéance : ${cards[i].dueDate}</span>
              <div class="flex flex-wrap gap-2">
-                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">${cards[i].tags.join(" ")}</span>
+                <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">#${cards[i].tags.join(" ")}</span>
              </div>
             </article>
     `
@@ -282,13 +289,13 @@ function regexForm() {
 }
 const form = document.getElementById("form");
 // console.log(form);
-form.addEventListener("submit", (e)=>{
+form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (regexForm()) {
-   
-        DivDone.innerHTML= "" ;
-        DivInProgress.innerHTML= "" ;
-        DivTodo.innerHTML= "" ;
+
+        DivDone.innerHTML = "";
+        DivInProgress.innerHTML = "";
+        DivTodo.innerHTML = "";
 
         const newCard = {
             title: inputTitle.value,
@@ -300,7 +307,7 @@ form.addEventListener("submit", (e)=>{
             status: selectStatus.value
         };
         // console.log("newcard",newCard);
-        
+
         state.push(newCard);
         // console.log("state",state);
         form.reset();
@@ -310,6 +317,36 @@ form.addEventListener("submit", (e)=>{
 
 });
 // btnSubmit.addEventListener("click",regexForm);
+//  filters(priority, assignee, title, afficherCards, Diverreur)
+
+const selectPriorityy = document.getElementById("priority");
+// console.log(selectPriorityy);
+
+
+const selectAssignee = document.getElementById("assignee");
+// console.log(selectAssignee);
+
+
+const inputSearch = document.getElementById("search");
+// console.log(inputSearch);
+
+function appliquerFiltres() {
+    filters(selectPriorityy.value,selectAssignee.value,inputSearch.value,afficherCards,Diverreur);
+}
+
+selectPriorityy.addEventListener("change", appliquerFiltres);
+selectAssignee.addEventListener("change", appliquerFiltres);
+inputSearch.addEventListener("input", appliquerFiltres);
+const btnRénitialiser = document.getElementById("btnRénitialiser");
+
+btnRénitialiser.addEventListener("click", () => {
+    inputSearch.value = "";
+    selectAssignee.value = "";
+    selectPriorityy.value = "";
+    loadCards(afficherCards, Diverreur);
+});
+
+
 
 
 
