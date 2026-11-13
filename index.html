@@ -1,14 +1,342 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./output.css" rel="stylesheet">
+<<<<<<< HEAD
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
+=======
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>FlowBoard</title>
+>>>>>>> develop
 </head>
-<body>
 
+<body class="m-0 min-h-screen flex flex-col bg-slate-100">
+
+    <header class="flex items-center justify-between bg-blue-950 p-5">
+
+        <div>
+            <h1 class="text-2xl  text-white">FlowBoard</h1>
+            <span class="text-xs text-blue-200">
+                Organisez vos tâches simplement
+            </span>
+        </div>
+
+        <button type="button" class="rounded bg-blue-600 px-5 py-3 text-sm text-white hover:bg-blue-700" id="openModal">
+            + Nouvelle carte
+        </button>
+
+    </header>
+        <div id="DivLoad" hidden class="flex flex-col items-center justify-center py-10">
+
+            <i class="fa-solid fa-sync fa-spin fa-bounce text-4xl text-green-700"></i>
+
+            <p class="mt-4 text-lg font-semibold text-gray-700">
+                Loading Cards...
+            </p>
+
+            <p class="mt-1 text-sm text-gray-400">
+                Please wait a moment ☕
+            </p>
+
+    </div>
+    <main class="flex flex-col gap-6 p-5">
+
+        <section class="flex flex-wrap items-end justify-between gap-4 rounded-lg bg-white p-5 shadow-sm">
+
+            <div>
+                <h2 class=" text-slate-800">Filtres</h2>
+                <span class="text-xs text-slate-500">Filtrer les tâches</span>
+            </div>
+
+            <div class="flex flex-1 flex-col gap-2 min-w-40">
+                <label for="priority" class="text-sm text-slate-700">Priorité :</label>
+                <select id="priority" name="priority" class="rounded border border-slate-300 p-2 text-sm">
+                    <option value="">Toutes priorités</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+
+            <div class="flex flex-1 flex-col gap-2 min-w-40">
+                <label for="assignee" class="text-sm text-slate-700">Assigné :</label>
+                <select id="assignee" name="assignee" class="rounded border border-slate-300 p-2 text-sm">
+                    <option value="">Tous assignés</option>
+                    <option value="Amina Haddad">Amina Haddad</option>
+                    <option value="Lucas Martin">Lucas Martin</option>
+                    <option value="Thomas Leroy">Thomas Leroy</option>
+                    <option value="Yasmine Benali">Yasmine Benali</option>
+                    <option value="Inès Moreau">Inès Moreau</option>
+                    <option value="null">Non assigné</option>
+                </select>
+            </div>
+
+            <div class="flex flex-1 flex-col gap-2 min-w-40">
+                <label for="search" class="text-sm text-slate-700">Recherche :</label>
+                <input type="search" id="search" placeholder="Rechercher une tâche..."
+                    class="rounded border border-slate-300 p-2 text-sm">
+            </div>
+
+            <button type="button" class="rounded border border-slate-300 px-4 py-2 text-sm hover:bg-slate-100" id="btnRénitialiser">
+                Réinitialiser
+            </button>
+
+        </section>
+        
+        <div id="DivErreur" hidden>
+
+        </div>
+        <section class="flex flex-wrap items-start gap-5">
+
+            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" >
+
+                <div class="flex items-center justify-between">
+                    <h2 class=" text-slate-800">Todo</h2>
+                    <span class="rounded-full bg-white px-3 py-1 text-xs " id="countTodo"></span>
+                </div>
+
+                <div class="flex flex-col gap-3" id="DivTodo"> 
+
+                    <!-- <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
+
+                        <h3 class=" text-slate-800">
+                            Rédiger les user stories
+                        </h3>
+
+                        <p class="text-sm text-slate-500">
+                            Lister les besoins des utilisateurs du tableau Kanban.
+                        </p>
+
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="rounded bg-amber-100 px-2 py-1 text-xs text-amber-700">
+                                Medium
+                            </span>
+                            <span class="text-xs text-slate-500">
+                                Lucas Martin
+                            </span>
+                        </div>
+
+                        <span class="text-xs text-slate-400">
+                            Échéance : 18/11/2026
+                        </span>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">
+                                gestion
+                            </span>
+                        </div>
+
+                    </article> -->
+
+                </div>
+            </div>
+
+            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" >
+
+                <div class="flex items-center justify-between">
+                    <h2 class=" text-slate-800">In Progress</h2>
+                    <span class="rounded-full bg-white px-3 py-1 text-xs " id="countInProgress"></span>
+                </div>
+
+                <div class="flex flex-col gap-3" id="DivInProgress">
+<!-- 
+                    <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
+
+                        <h3 class=" text-slate-800">
+                            Maquetter la page d'accueil
+                        </h3>
+
+                        <p class="text-sm text-slate-500">
+                            Réaliser la maquette Figma en version bureau et mobile.
+                        </p>
+
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="rounded bg-red-100 px-2 py-1 text-xs text-red-700">
+                                High
+                            </span>
+                            <span class="text-xs text-slate-500">
+                                Amina Haddad
+                            </span>
+                        </div>
+
+                        <span class="text-xs text-slate-400">
+                            Échéance : 20/11/2026
+                        </span>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">design</span>
+                            <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">ui</span>
+                        </div>
+
+                    </article> -->
+
+                </div> 
+            </div>
+
+            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" >
+
+                <div class="flex items-center justify-between">
+                    <h2 class=" text-slate-800">Done</h2>
+                    <span class="rounded-full bg-white px-3 py-1 text-xs " id="countDone"></span>
+                </div>
+
+                <div class="flex flex-col gap-3" id="DivDone">
+
+                    <!-- <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
+
+                        <h3 class=" text-slate-800">
+                            Initialiser le dépôt Git
+                        </h3>
+
+                        <p class="text-sm text-slate-500">
+                            Créer les branches main et develop, protéger main.
+                        </p>
+
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="rounded bg-amber-100 px-2 py-1 text-xs text-amber-700">
+                                Medium
+                            </span>
+                            <span class="text-xs text-slate-500">
+                                Thomas Leroy
+                            </span>
+                        </div>
+
+                        <span class="text-xs text-slate-400">
+                            Échéance : 05/11/2026
+                        </span>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">git</span>
+                            <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">outillage</span>
+                        </div>
+
+                    </article> -->
+
+                </div> 
+            </div>
+
+        </section>
+
+    </main>
+    <footer class="mt-auto border-t bg-white p-4 text-center text-xs text-slate-500">
+        © 2026 FlowBoard - Gestion des tâches
+    </footer>
+    <!-- Modal -->
+    <dialog id="cardModal" class="w-full max-w-xl rounded-xl  backdrop:bg-slate-900/50">
+        <div class="bg-white rounded-xl ">
+
+            <div class="bg-blue-950 text-white px-6 py-5 rounded-t-xl">
+                <h2 class="text-2xl">Nouvelle carte</h2>
+                <p class="text-blue-200 text-sm mt-1">
+                    Remplissez les informations de la tâche
+                </p>
+            </div>
+
+            <form id="form" class="p-6 space-y-4">
+
+                <div id="DivTitle">
+                    <label for="title" class="block text-sm  text-slate-700 mb-2">
+                        Titre
+                    </label>
+                    <input type="text" id="title" name="title" placeholder="Ex : Gérer l'état de chargement"  
+                        minlength="3" maxlength="100"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3">
+                </div>
+
+                <div id="DivDescription">
+                    <label for="description" class="block text-sm  text-slate-700 mb-2">
+                        Description
+                    </label>
+                    <textarea id="description" name="description" placeholder="Décrire la tâche..."  
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3"></textarea>
+                </div>
+
+                <div  class="flex gap-4">
+
+                    <div class="flex-1" id="DivStatus">
+                        <label for="status" class="block text-sm  text-slate-700 mb-2">
+                            Statut
+                        </label>
+                        <select id="status" name="status"  
+                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white">
+                            <option value=""  selected disabled>choisir un choix</option>
+                            <option value="todo">todo</option>
+                            <option value="in-progress">in-progress</option>
+                            <option value="done">done</option>
+                        </select>
+                    </div>
+
+                    <div class="flex-1" id="DivPriority">
+                        <label for="priority" class="block text-sm  text-slate-700 mb-2">
+                            Priorité
+                        </label>
+                        <select id="priorityy" name="priority"  
+                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white ">
+                            <option value="" disabled selected>choisir un choix</option>
+                            <option value="low">low</option>
+                            <option value="medium">medium</option>
+                            <option value="high">high</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div id="DivAssignee">
+                    <label for="assigneeAdd" class="block text-sm  text-slate-700 mb-2">
+                        Assigné à
+                    </label>
+                    <input type="text" id="assigneeAdd" name="assigneeAdd" placeholder="Ex : Inès Moreau"  
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3">
+                </div>
+
+                <div id="DivDate">
+                    <label for="dueDate" class="block text-sm  text-slate-700 mb-2">
+                        Date d'échéance
+                    </label>
+                    <input type="date" id="dueDate" name="dueDate"  
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3 ">
+                </div>
+
+                <div id="DivTags">
+                    <label for="tags" class="block text-sm  text-slate-700 mb-2">
+                        Tags
+                    </label>
+                    <input type="text" id="tags" name="tags" placeholder="Ex : front, ux, backend"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3">
+                    <p class="text-xs text-slate-500 mt-1">
+                        Séparez les tags par des virgules.
+                    </p>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
+
+                    <button type="button" id="closeModal"
+                        class="px-5 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-100 ">
+                        Annuler
+                    </button>
+
+                    <button type="submit"
+                        class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg " id="btnSubmit">
+                        Ajouter la carte
+                    </button>
+
+                </div>
+
+            </form>
+        </div>
+    </dialog>
+
+<<<<<<< HEAD
 <script src="script.js"></script> 
+=======
+
+    <!-- <script type="module" src="./app.js"></script> -->
+    <script type="module" src="ui.js"></script>
+>>>>>>> develop
 </body>
+
 </html>
