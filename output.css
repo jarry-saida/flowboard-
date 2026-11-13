@@ -9,11 +9,14 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
 <<<<<<< HEAD
+<<<<<<< HEAD
     --color-blue-600: oklch(54.6% 0.245 262.881);
     --text-3xl: 1.875rem;
     --text-3xl--line-height: calc(2.25 / 1.875);
     --font-weight-bold: 700;
 =======
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
     --color-red-100: oklch(93.6% 0.032 17.717);
     --color-red-600: oklch(57.7% 0.245 27.325);
     --color-red-700: oklch(50.5% 0.213 27.518);
@@ -48,7 +51,10 @@
     --radius-xl: 0.75rem;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
   }
@@ -131,9 +137,12 @@
   img, svg, video, canvas, audio, iframe, embed, object {
     display: block;
 <<<<<<< HEAD
+<<<<<<< HEAD
     vertical-align: middle;
 =======
 >>>>>>> develop
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
   }
   img, video {
     max-width: 100%;
@@ -206,6 +215,7 @@
 }
 @layer utilities {
 <<<<<<< HEAD
+<<<<<<< HEAD
   .table {
     display: table;
   }
@@ -216,6 +226,8 @@
     resize: both;
   }
 =======
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
   .m-0 {
     margin: 0px;
   }
@@ -327,11 +339,15 @@
     border-top-left-radius: var(--radius-xl);
     border-top-right-radius: var(--radius-xl);
   }
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+<<<<<<< HEAD
 <<<<<<< HEAD
   .text-center {
     text-align: center;
@@ -347,6 +363,8 @@
   .text-blue-600 {
     color: var(--color-blue-600);
 =======
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
   .border-t {
     border-top-style: var(--tw-border-style);
     border-top-width: 1px;
@@ -480,24 +498,36 @@
   }
   .text-white {
     color: var(--color-white);
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
   }
   .underline {
     text-decoration-line: underline;
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
   .shadow-sm {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
   .outline {
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
   .transition {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
@@ -525,7 +555,10 @@
   syntax: "*";
   inherits: false;
   initial-value: 0;
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
 }
 @property --tw-border-style {
   syntax: "*";
@@ -537,7 +570,10 @@
   inherits: false;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
 @property --tw-shadow {
   syntax: "*";
   inherits: false;
@@ -603,7 +639,10 @@
   inherits: false;
   initial-value: 0 0 #0000;
 }
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
 @property --tw-outline-style {
   syntax: "*";
   inherits: false;
@@ -613,9 +652,12 @@
   @supports ((-webkit-hyphens: none) and (not (margin-trim: block))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
 <<<<<<< HEAD
+<<<<<<< HEAD
       --tw-border-style: solid;
       --tw-font-weight: initial;
 =======
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
       --tw-space-y-reverse: 0;
       --tw-border-style: solid;
       --tw-font-weight: initial;
@@ -633,7 +675,10 @@
       --tw-ring-offset-width: 0px;
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> 0c7a8e28ae18b61a6acfcd0fe422adaf619ddfc9
       --tw-outline-style: solid;
     }
   }
