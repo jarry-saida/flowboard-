@@ -6,18 +6,13 @@ const DivInProgress = document.getElementById("DivInProgress");
 // console.log(DivInProgress);
 const DivDone = document.getElementById("DivDone");
 // console.log(DivDone);
-const DivLoad = document.getElementById("DivLoad");
 
 document.addEventListener("DOMContentLoaded", () => {
-    DivLoad.hidden = false;
     loadCards((cards) => {
-        DivLoad.hidden = true;
         afficherCards(cards);
         state = cards;
         // console.log(state);
     }, Diverreur);
-
-
 });
 
 function afficherCards(cards) {
