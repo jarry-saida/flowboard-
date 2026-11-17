@@ -1,5 +1,5 @@
-import { loadCards, filters } from "./services/cardService.js";
-import { afficherCards,DivTodo,DivInProgress,DivDone} from "./ui/board.js";
+import { loadCards, filters, getDataCard } from "./services/cardService.js";
+import { afficherCards, DivTodo, DivInProgress, DivDone } from "./ui/board.js";
 import { Diverreur } from "./ui/notifications.js";
 import {
     regexForm,
@@ -10,9 +10,13 @@ import {
     textareaDescription,
     selectPriority,
     selectStatus,
+    
 } from "./ui/modal.js";
 
-import { state , setState} from "./data/store.js";
+import { state, setState } from "./data/store.js";
+
+const btnEdit = document.getElementById("btn-Edit");    
+const btnSubmit = document.getElementById("btnSubmit");
 
 document.addEventListener("DOMContentLoaded", () => {
     loadCards((cards) => {
@@ -35,7 +39,11 @@ const btnOpenModal = document.getElementById("openModal");
 const dialog = document.getElementById("cardModal");
 // console.log(dialog);
 btnOpenModal.addEventListener("click", () => {
+    btnEdit.style.display = "none";
+    // btnEdit.hidden = false;
+    btnSubmit.style.display = "block";
     dialog.showModal();
+
 });
 const btnCloseModal = document.getElementById("closeModal");
 // console.log(btnCloseModal);
@@ -62,7 +70,7 @@ form.addEventListener("submit", (e) => {
             priority: selectPriority.value,
             status: selectStatus.value
         };
-        console.log("newcard",newCard);
+        console.log("newcard", newCard);
 
         state.push(newCard);
         // console.log("state",state);
@@ -92,4 +100,32 @@ btnRénitialiser.addEventListener("click", () => {
     selectAssignee.value = "";
     selectPriorityy.value = "";
     loadCards(afficherCards, Diverreur);
+});
+// const btnModifier = document.querySelectorAll('[data-id]');
+// console.log(btnModifier);
+// const btnModifier = document.querySelectorAll("button[data-id]");
+// console.log("btnModifier",btnModifier);
+
+document.addEventListener("click", async (e) => {
+    // let 
+    if (e.target.closest(".btnModifier")) {
+        // console.log(e.target.dataset.id);
+        dialog.showModal();
+        let idTarget = e.target.dataset.id;
+        const { data } = await getDataCard(idTarget);
+        // console.log(data);
+        document.querySelector('[name="title"]').value = data.title;
+        document.querySelector('[name="description"]').value = data.description;
+        document.querySelector('[name="assigneeAdd"]').value = data.assignee;
+        document.querySelector('[name="status"]').value = data.status;
+        document.querySelector('[name="priorityAdd"]').value = data.priority;
+        document.querySelector('[name="dueDate"]').value = data.dueDate;
+        document.querySelector('[name="tags"]').value = data.tags;
+    }
+    // console.log(btnSubmit);
+    btnSubmit.style.display = "none";
+    btnEdit.style.display ="block";
+    // btnSubmit.classList.add("hidden");
+    
+
 });

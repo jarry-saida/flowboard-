@@ -37,3 +37,6 @@ export async function filters(priority, assignee, title, afficherCards, Diverreu
     console.log(error)
   }
 }
+export async function getDataCard(id) {
+  return await api.get("/cards/"+id);
+}

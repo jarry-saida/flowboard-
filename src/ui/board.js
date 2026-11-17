@@ -5,14 +5,19 @@ export const DivInProgress = document.getElementById("DivInProgress");
 // console.log(DivInProgress);
 export const DivDone = document.getElementById("DivDone");
 // console.log(DivDone);
+export const DivButton = document.getElementById("DivButton");
+// console.log(DivButton);
 export function afficherCards(cards) {
+
+
     DivTodo.innerHTML = "";
     DivInProgress.innerHTML = "";
     DivDone.innerHTML = "";
-
     compteur(cards);
     for (let i = 0; i < cards.length; i++) {
+
         if (cards[i].status === "todo") {
+
             DivTodo.innerHTML += `
             <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
                 <h3 class=" text-slate-800">${cards[i].title}</h3>
@@ -25,9 +30,16 @@ export function afficherCards(cards) {
              <div class="flex flex-wrap gap-2">
                 <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">#${cards[i].tags.join("#")}</span>
              </div>
+             <button data-id = ${cards[i].id}
+                        class="btnModifier px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg ">
+                       Modifier
+                    </button>
             </article>
+
     `
+          
         } else if (cards[i].status === "in-progress") {
+
             DivInProgress.innerHTML += `
             <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
                 <h3 class=" text-slate-800">${cards[i].title}</h3>
@@ -40,9 +52,15 @@ export function afficherCards(cards) {
              <div class="flex flex-wrap gap-2">
                 <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">#${cards[i].tags.join("#")}</span>
              </div>
+                        <button data-id = ${cards[i].id}
+                        class="btnModifier px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg " >
+                       Modifier
+                    </button>
             </article>
     `
+            
         } else {
+
             DivDone.innerHTML += `
             <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
                 <h3 class=" text-slate-800">${cards[i].title}</h3>
@@ -55,11 +73,17 @@ export function afficherCards(cards) {
              <div class="flex flex-wrap gap-2">
                 <span class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-700">#${cards[i].tags.join("#")}</span>
              </div>
+            <button data-id = ${cards[i].id}
+                        class="btnModifier px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg ">
+                       Modifier
+            </button>
             </article>
     `
+            
         }
     }
 }
+
 export const spanTodoCount = document.getElementById("countTodo");
 export const spanInProgressCount = document.getElementById("countInProgress");
 export const spanDoneCount = document.getElementById("countDone");
