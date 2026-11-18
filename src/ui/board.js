@@ -34,6 +34,13 @@ export function afficherCards(cards) {
                         class="btnModifier px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg ">
                        Modifier
                     </button>
+                        <select  name="statusEdit" data-id = ${cards[i].id}
+                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white">
+                            <option value="" selected disabled>changement de status</option>
+                            <option value="todo">todo</option>
+                            <option value="in-progress">in-progress</option>
+                            <option value="done">done</option>
+                        </select>
             </article>
 
     `
@@ -56,6 +63,13 @@ export function afficherCards(cards) {
                         class="btnModifier px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg " >
                        Modifier
                     </button>
+                                            <select  name="statusEdit" data-id = ${cards[i].id}
+                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white">
+                            <option value="" selected disabled >changement de status</option>
+                            <option value="todo">todo</option>
+                            <option value="in-progress">in-progress</option>
+                            <option value="done">done</option>
+                        </select>
             </article>
     `
             
@@ -77,6 +91,13 @@ export function afficherCards(cards) {
                         class="btnModifier px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg ">
                        Modifier
             </button>
+                        <select  name="statusEdit" data-id = ${cards[i].id}
+                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white">
+                            <option value="" selected disabled >changement de status</option>
+                            <option value="todo">todo</option>
+                            <option value="in-progress">in-progress</option>
+                            <option value="done">done</option>
+                        </select>
             </article>
     `
             
