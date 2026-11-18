@@ -1,4 +1,4 @@
-import { loadCards, filters, getDataCard, AjouterCardEdit } from "./services/cardService.js";
+import { loadCards, filters, getDataCard, AjouterCardEdit, MoveCard} from "./services/cardService.js";
 import { afficherCards, DivTodo, DivInProgress, DivDone } from "./ui/board.js";
 import { Diverreur } from "./ui/notifications.js";
 import {
@@ -13,7 +13,7 @@ import {
 
 } from "./ui/modal.js";
 
-import { state, setState, changeState } from "./data/store.js";
+import { state, setState, changeState, changeStatusState } from "./data/store.js";
 
 
 
@@ -176,4 +176,24 @@ btnEdit.addEventListener("click", async (e) => {
     }
 
 
+});
+document.addEventListener("click",async (e)=>{
+    let targetSelect = e.target.closest("[name=statusEdit]");
+    // console.log(targetSelect);
+    // targetSelect && targetSelect.value
+    if (targetSelect && targetSelect.value) {
+     let valueStatus = targetSelect.value;
+    // console.log(valueStatus);
+    let idCard = e.target.dataset.id;// njereb wach closest atkhdem liya  
+    // console.log(idCard);
+    changeStatusState(idCard,valueStatus);
+    await MoveCard(idCard,valueStatus);
+    // let {data} = await getDataCard(idCard) ;
+
+    // console.log(data);
+    // console.log(state);
+    
+    
+    afficherCards(state);       
+    }
 });
