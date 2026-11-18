@@ -1,4 +1,4 @@
-import { loadCards, filters, getDataCard } from "./services/cardService.js";
+import { loadCards, filters, getDataCard, AjouterCardEdit } from "./services/cardService.js";
 import { afficherCards, DivTodo, DivInProgress, DivDone } from "./ui/board.js";
 import { Diverreur } from "./ui/notifications.js";
 import {
@@ -10,13 +10,12 @@ import {
     textareaDescription,
     selectPriority,
     selectStatus,
-    
+
 } from "./ui/modal.js";
 
-import { state, setState } from "./data/store.js";
+import { state, setState ,changeState} from "./data/store.js";
 
-const btnEdit = document.getElementById("btn-Edit");    
-const btnSubmit = document.getElementById("btnSubmit");
+
 
 document.addEventListener("DOMContentLoaded", () => {
     loadCards((cards) => {
@@ -38,16 +37,21 @@ const btnOpenModal = document.getElementById("openModal");
 // console.log(btnOpenModal);
 const dialog = document.getElementById("cardModal");
 // console.log(dialog);
+const btnEdit = document.getElementById("btn-Edit");
+const btnSubmit = document.getElementById("btnSubmit");
 btnOpenModal.addEventListener("click", () => {
+    form.reset();
+
     btnEdit.style.display = "none";
-    // btnEdit.hidden = false;
     btnSubmit.style.display = "block";
+
     dialog.showModal();
 
 });
 const btnCloseModal = document.getElementById("closeModal");
 // console.log(btnCloseModal);
 btnCloseModal.addEventListener("click", () => {
+    form.reset();
     dialog.close();
 });
 
@@ -105,14 +109,15 @@ btnRénitialiser.addEventListener("click", () => {
 // console.log(btnModifier);
 // const btnModifier = document.querySelectorAll("button[data-id]");
 // console.log("btnModifier",btnModifier);
-
+let Card = null;
 document.addEventListener("click", async (e) => {
-    // let 
-    if (e.target.closest(".btnModifier")) {
+    let btnEditClick = e.target.closest(".btnModifier");
+    if (btnEditClick) {
         // console.log(e.target.dataset.id);
-        dialog.showModal();
+        form.reset();
         let idTarget = e.target.dataset.id;
         const { data } = await getDataCard(idTarget);
+        Card = data;
         // console.log(data);
         document.querySelector('[name="title"]').value = data.title;
         document.querySelector('[name="description"]').value = data.description;
@@ -121,11 +126,38 @@ document.addEventListener("click", async (e) => {
         document.querySelector('[name="priorityAdd"]').value = data.priority;
         document.querySelector('[name="dueDate"]').value = data.dueDate;
         document.querySelector('[name="tags"]').value = data.tags;
+        btnSubmit.style.display = "none";
+        btnEdit.style.display = "block";
+        dialog.showModal();
+        console.log(data);
+
     }
-    // console.log(btnSubmit);
-    btnSubmit.style.display = "none";
-    btnEdit.style.display ="block";
-    // btnSubmit.classList.add("hidden");
+});
+
+btnEdit.addEventListener("click", async (e) => {
     
+
+    const newData = {
+        id:Card.id,
+        title: form.querySelector('[name="title"]').value,
+        description: form.querySelector('[name="description"]').value,
+        assignee: form.querySelector('[name="assigneeAdd"]').value,
+        status: form.querySelector('[name="status"]').value,
+        priority: form.querySelector('[name="priorityAdd"]').value,
+        dueDate: form.querySelector('[name="dueDate"]').value,
+        tags: [form.querySelector('[name="tags"]').value]
+    };
+    
+    changeState(state,newData);
+    
+    // console.log(Card);
+    console.log(state);
+    
+    
+    await AjouterCardEdit(Card);
+    // console.log(Card);
+    dialog.close();
+
+    afficherCards(state);
 
 });
