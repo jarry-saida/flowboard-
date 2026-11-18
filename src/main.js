@@ -129,7 +129,7 @@ document.addEventListener("click", async (e) => {
         btnSubmit.style.display = "none";
         btnEdit.style.display = "block";
         dialog.showModal();
-        console.log(data);
+        // console.log(data);
 
     }
 });
@@ -148,19 +148,32 @@ btnEdit.addEventListener("click", async (e) => {
         status: form.querySelector('[name="status"]').value,
         priority: form.querySelector('[name="priorityAdd"]').value,
         dueDate: form.querySelector('[name="dueDate"]').value,
-        tags: [form.querySelector('[name="tags"]').value]
+        tags: form.querySelector('[name="tags"]').value.split(",")
     };
+    btnEdit.disabled = true;
+    btnEdit.textContent = "Modification en cours...";
 
-    changeState(state, newData);
+    try {
+        changeState(state, newData);
 
-    // console.log(Card);
-    console.log(state);
+        // console.log(Card);
+        console.log(state);
 
 
-    await AjouterCardEdit(Card);
-    // console.log(Card);
-    dialog.close();
+        await AjouterCardEdit(Card);
+        // console.log(Card);
 
-    afficherCards(state);
+        afficherCards(state);
+        dialog.close();
+
+    } catch (error) {
+
+        console.log(error);
+
+    } finally {
+        btnEdit.disabled = false;
+        btnEdit.textContent = "Modifier";
+    }
+
 
 });

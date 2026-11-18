@@ -41,8 +41,7 @@ export async function getDataCard(id) {
   return await api.get("/cards/" + id);
 }
 export async function AjouterCardEdit(card) {
-  const response = await api.put(
-    `/cards/${card.id}`,
+  const response = await api.put(`/cards/${card.id}`,
     card,
     {
       params: {
@@ -50,27 +49,6 @@ export async function AjouterCardEdit(card) {
       }
     }
   );
-
   return response.data;
 }
-//export async function AjouterCardEdit(card) {
-//   try {
-//     const response = await api.put(`/cards/${card.id}?password=1234`,
-//       card,
-//       {
 
-//         headers: {
-//           "X-Workspace": "public",
-//           "Content-Type": "application/json"
-//         }
-//       }
-//     );
-
-//     console.log(response.card);
-//     return response.card;
-
-//   } catch (error) {
-//     console.error(error.response?.card || error.message);
-//     throw error;
-//   }
-// }
