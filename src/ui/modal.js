@@ -25,7 +25,7 @@ export const textareaDescription = document.getElementById("description");
 export const DivDescription = document.getElementById("DivDescription");
 // console.log(DivDescription);
 export function regexDescription() {
-    const regexDescription = /^[a-zA-ZÀ-ÿ\s'-]{2,50}$/;
+    const regexDescription = /^[\s\S]{2,500}$/;
     const valueDescription = textareaDescription.value;
     // console.log(valueDescription);
     if (regexDescription.test(valueDescription)) {

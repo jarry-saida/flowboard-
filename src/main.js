@@ -13,7 +13,7 @@ import {
 
 } from "./ui/modal.js";
 
-import { state, setState ,changeState} from "./data/store.js";
+import { state, setState, changeState } from "./data/store.js";
 
 
 
@@ -135,10 +135,13 @@ document.addEventListener("click", async (e) => {
 });
 
 btnEdit.addEventListener("click", async (e) => {
-    
+
+    if (!regexForm()) {
+        return;
+    }
 
     const newData = {
-        id:Card.id,
+        id: Card.id,
         title: form.querySelector('[name="title"]').value,
         description: form.querySelector('[name="description"]').value,
         assignee: form.querySelector('[name="assigneeAdd"]').value,
@@ -147,13 +150,13 @@ btnEdit.addEventListener("click", async (e) => {
         dueDate: form.querySelector('[name="dueDate"]').value,
         tags: [form.querySelector('[name="tags"]').value]
     };
-    
-    changeState(state,newData);
-    
+
+    changeState(state, newData);
+
     // console.log(Card);
     console.log(state);
-    
-    
+
+
     await AjouterCardEdit(Card);
     // console.log(Card);
     dialog.close();
