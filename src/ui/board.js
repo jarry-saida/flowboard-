@@ -41,8 +41,8 @@ export function afficherCards(cards) {
                             <option value="in-progress">in-progress</option>
                             <option value="done">done</option>
                         </select>
-                        <button data-id = ${cards[i].id}
-                        class="btnSupprimer px-5 py-3 bg-red-800 text-white rounded-lg " >
+                        <button 
+                        class="btnSupprimer px-5 py-3 bg-red-800 text-white rounded-lg " data-id = ${cards[i].id}>
                        Supprimer
                     </button>
             </article>
@@ -74,8 +74,8 @@ export function afficherCards(cards) {
                             <option value="in-progress">in-progress</option>
                             <option value="done">done</option>
                         </select>
-                    <button data-id = ${cards[i].id}
-                        class="btnSupprimer px-5 py-3 bg-red-800 text-white rounded-lg " >
+                    <button 
+                        class="btnSupprimer px-5 py-3 bg-red-800 text-white rounded-lg " data-id = ${cards[i].id} >
                        Supprimer
                     </button>
             </article>

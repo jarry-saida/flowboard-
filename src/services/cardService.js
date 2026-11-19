@@ -79,17 +79,14 @@ export async function MoveCard(idCard, valueStatus) {
     }
   }
 
-  try {
-    const { data } = await axios.request(options)
-    console.log(data)
-  } catch (error) {
-    console.error(error)
-  }
+  const { data } = await axios.request(options)
+  console.log(data)
+
 }
 export async function SupprimerCard(idCardDelete) {
   const options = {
     method: 'DELETE',
-    url: 'https://flowboard-api-virid.vercel.app/cards/'+idCardDelete,
+    url: 'https://flowboard-api-virid.vercel.app/cards/' + idCardDelete,
     headers: {
       'X-Workspace': 'public'
     },
@@ -98,11 +95,8 @@ export async function SupprimerCard(idCardDelete) {
     },
   }
 
-  try {
-    const { data } = await axios.request(options)
-    console.log(data)
-  } catch (error) {
-    console.error(error)
-  }
+  const { data } = await axios.request(options);
+  console.log(data);
+
 }
 

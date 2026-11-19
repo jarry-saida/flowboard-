@@ -1,6 +1,6 @@
-import { loadCards, filters, getDataCard, AjouterCardEdit, MoveCard, SupprimerCard} from "./services/cardService.js";
+import { loadCards, filters, getDataCard, AjouterCardEdit, MoveCard, SupprimerCard } from "./services/cardService.js";
 import { afficherCards, DivTodo, DivInProgress, DivDone } from "./ui/board.js";
-import { Diverreur } from "./ui/notifications.js";
+import { Diverreur, ModificationSwal, SupprimerSwal} from "./ui/notifications.js";
 import {
     regexForm,
     inputDate,
@@ -13,7 +13,7 @@ import {
 
 } from "./ui/modal.js";
 
-import { state, setState, changeState, changeStatusState,changeStateDelete, newState } from "./data/store.js";
+import { state, setState, changeState, changeStatusState, changeStateDelete, newState } from "./data/store.js";
 
 
 
@@ -111,18 +111,19 @@ btnRénitialiser.addEventListener("click", () => {
 // console.log("btnModifier",btnModifier);
 let Card = null;
 document.addEventListener("click", async (e) => {
+    
     let btnEditClick = e.target.closest(".btnModifier");
     if (btnEditClick) {
         // console.log(e.target.dataset.id);
         // form.reset();
-    inputDate.value = "";
-    inputTags.value = "";
-    inputAssignee.value = "";
-    inputTitle.value = "";
-    textareaDescription.value = "";
-    selectPriority.value = "";
-    selectStatus.value = "";
-    
+        inputDate.value = "";
+        inputTags.value = "";
+        inputAssignee.value = "";
+        inputTitle.value = "";
+        textareaDescription.value = "";
+        selectPriority.value = "";
+        selectStatus.value = "";
+
         let idTarget = e.target.dataset.id;
         const { data } = await getDataCard(idTarget);
         Card = data;
@@ -172,6 +173,7 @@ btnEdit.addEventListener("click", async (e) => {
         // console.log(Card);
 
         afficherCards(state);
+        ModificationSwal();
         dialog.close();
 
     } catch (error) {
@@ -185,29 +187,62 @@ btnEdit.addEventListener("click", async (e) => {
 
 
 });
-document.addEventListener("click",async (e)=>{
+document.addEventListener("click", async (e) => {
     let targetSelect = e.target.closest("[name=statusEdit]");
     // console.log(targetSelect);
     // targetSelect && targetSelect.value
     if (targetSelect && targetSelect.value) {
-    let valueStatus = targetSelect.value;
-    // console.log(valueStatus);
-    let idCard = e.target.dataset.id; 
-    // console.log(idCard);
-    changeStatusState(idCard,valueStatus);
-    await MoveCard(idCard,valueStatus);
-    afficherCards(state);       
+        let valueStatus = targetSelect.value;
+        // console.log(valueStatus);
+        let idCard = e.target.dataset.id;
+        // console.log(idCard);
+        changeStatusState(idCard, valueStatus);
+        await MoveCard(idCard, valueStatus);
+        afficherCards(state);
     }
 });
-document.addEventListener("click",async (e)=>{
+const modal = document.getElementById("deleteModal");
+const cancelBtn = document.getElementById("cancelDelete");
+const confirmBtn = document.getElementById("confirmDelete");
+const errorMessage = document.getElementById("errorMessage");
+const modalDelete = document.getElementById("modalDelete");
+// console.log(modalDelete);
+let idCardDelete = null;
+document.addEventListener("click", (e) => {
     let btnSupprimer = e.target.closest(".btnSupprimer");
     // console.log(btnSupprimer);
-    if (btnSupprimer) {
-    let idCardDelete = e.target.dataset.id; 
+    idCardDelete = e.target.dataset.id;
     // console.log(idCardDelete);
-    changeStateDelete(idCardDelete);
-    await  SupprimerCard(idCardDelete);
-    // console.log(state);
-    afficherCards(newState);       
+    if (btnSupprimer) {
+
+        modalDelete.showModal();
+        modal.classList.remove("hidden");
+        errorMessage.textContent = "";
+        // changeStateDelete(idCardDelete);
+        // await  SupprimerCard(idCardDelete);
+        // // console.log(state);
+        // afficherCards(newState);       
     }
+});
+cancelBtn.addEventListener("click", () => {
+    modalDelete.close();
+});
+confirmBtn.addEventListener("click", async (e) => {
+    try {
+        // console.log(idCardDelete);
+        errorMessage.textContent = "Une erreur est survenue lors du chargement des cartes."
+        errorMessage.hidden = true ;
+        changeStateDelete(idCardDelete);
+        await SupprimerCard(idCardDelete);
+        // // console.log(state);
+        SupprimerSwal();
+        modalDelete.close();
+        afficherCards(newState);
+    } catch (error) {
+        modalDelete.close();
+        console.log(error);
+        errorMessage.textContent = "Une erreur est survenue lors du suppression  des cartes."
+        errorMessage.hidden = false ;
+    }
+
 });
