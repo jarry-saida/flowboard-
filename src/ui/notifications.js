@@ -23,4 +23,22 @@ export function Diverreur() {
 
     DivErreur.hidden = false;
 }
+export function ModificationSwal() {
+        Swal.fire({
+            title: "Modification réussie !",
+            icon: "success",
+            confirmButtonText: "Annuler",
+            confirmButtonColor: "#394832"
+        });
+}
+export function SupprimerSwal() {
+        Swal.fire({
+            title: "Suppression réussie !",
+            icon: "success",
+            confirmButtonText: "Annuler",
+            confirmButtonColor: "#394832"
+        });
+}
+
+
 
