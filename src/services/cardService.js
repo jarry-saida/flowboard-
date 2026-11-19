@@ -62,27 +62,47 @@ export async function AjouterCardEdit(card) {
 //   );
 //   return response.data;
 // }
-export async function MoveCard(idCard,valueStatus) {
+export async function MoveCard(idCard, valueStatus) {
 
-const options = {
-  method: 'PATCH',
-  url: 'https://flowboard-api-virid.vercel.app/cards/'+idCard,
-  headers: {
-    'X-Workspace': 'public',
-    'Content-Type': 'application/json'
-  },
-      params: {
-        password: "1234"
-      },
-  data: {
-    status: valueStatus
+  const options = {
+    method: 'PATCH',
+    url: 'https://flowboard-api-virid.vercel.app/cards/' + idCard,
+    headers: {
+      'X-Workspace': 'public',
+      'Content-Type': 'application/json'
+    },
+    params: {
+      password: "1234"
+    },
+    data: {
+      status: valueStatus
+    }
+  }
+
+  try {
+    const { data } = await axios.request(options)
+    console.log(data)
+  } catch (error) {
+    console.error(error)
+  }
+}
+export async function SupprimerCard(idCardDelete) {
+  const options = {
+    method: 'DELETE',
+    url: 'https://flowboard-api-virid.vercel.app/cards/'+idCardDelete,
+    headers: {
+      'X-Workspace': 'public'
+    },
+    params: {
+      password: "1234"
+    },
+  }
+
+  try {
+    const { data } = await axios.request(options)
+    console.log(data)
+  } catch (error) {
+    console.error(error)
   }
 }
 
-try {
-  const { data } = await axios.request(options)
-  console.log(data)
-} catch (error) {
-  console.error(error)
-}
-}

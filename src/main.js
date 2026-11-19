@@ -1,4 +1,4 @@
-import { loadCards, filters, getDataCard, AjouterCardEdit, MoveCard} from "./services/cardService.js";
+import { loadCards, filters, getDataCard, AjouterCardEdit, MoveCard, SupprimerCard} from "./services/cardService.js";
 import { afficherCards, DivTodo, DivInProgress, DivDone } from "./ui/board.js";
 import { Diverreur } from "./ui/notifications.js";
 import {
@@ -13,7 +13,7 @@ import {
 
 } from "./ui/modal.js";
 
-import { state, setState, changeState, changeStatusState } from "./data/store.js";
+import { state, setState, changeState, changeStatusState,changeStateDelete, newState } from "./data/store.js";
 
 
 
@@ -114,7 +114,15 @@ document.addEventListener("click", async (e) => {
     let btnEditClick = e.target.closest(".btnModifier");
     if (btnEditClick) {
         // console.log(e.target.dataset.id);
-        form.reset();
+        // form.reset();
+    inputDate.value = "";
+    inputTags.value = "";
+    inputAssignee.value = "";
+    inputTitle.value = "";
+    textareaDescription.value = "";
+    selectPriority.value = "";
+    selectStatus.value = "";
+    
         let idTarget = e.target.dataset.id;
         const { data } = await getDataCard(idTarget);
         Card = data;
@@ -182,18 +190,24 @@ document.addEventListener("click",async (e)=>{
     // console.log(targetSelect);
     // targetSelect && targetSelect.value
     if (targetSelect && targetSelect.value) {
-     let valueStatus = targetSelect.value;
+    let valueStatus = targetSelect.value;
     // console.log(valueStatus);
-    let idCard = e.target.dataset.id;// njereb wach closest atkhdem liya  
+    let idCard = e.target.dataset.id; 
     // console.log(idCard);
     changeStatusState(idCard,valueStatus);
     await MoveCard(idCard,valueStatus);
-    // let {data} = await getDataCard(idCard) ;
-
-    // console.log(data);
-    // console.log(state);
-    
-    
     afficherCards(state);       
+    }
+});
+document.addEventListener("click",async (e)=>{
+    let btnSupprimer = e.target.closest(".btnSupprimer");
+    // console.log(btnSupprimer);
+    if (btnSupprimer) {
+    let idCardDelete = e.target.dataset.id; 
+    // console.log(idCardDelete);
+    changeStateDelete(idCardDelete);
+    await  SupprimerCard(idCardDelete);
+    // console.log(state);
+    afficherCards(newState);       
     }
 });
