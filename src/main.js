@@ -1,6 +1,6 @@
 import { loadCards, filters, getDataCard, AjouterCardEdit, MoveCard, SupprimerCard } from "./services/cardService.js";
 import { afficherCards, DivTodo, DivInProgress, DivDone } from "./ui/board.js";
-import { Diverreur, ModificationSwal, SupprimerSwal} from "./ui/notifications.js";
+import { Diverreur, ModificationSwal, SupprimerSwal } from "./ui/notifications.js";
 import {
     regexForm,
     inputDate,
@@ -13,14 +13,19 @@ import {
 
 } from "./ui/modal.js";
 
-import { state, setState, changeState, changeStatusState, changeStateDelete, newState } from "./data/store.js";
+import { state, setState, changeState, changeStatusState, changeStateDelete, newState, titleValue, assigneeValue, priorityValue, title, assignee, priority } from "./data/store.js";
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    selectPriorityy.value = priorityValue();
+    selectAssignee.value = assigneeValue();
+    inputSearch.value = titleValue();
+    appliquerFiltres();
     loadCards((cards) => {
         afficherCards(cards);
-        // state = cards;
+        assigneeValue();
+        priorityValue();        // state = cards;
         setState(cards);
         // console.log(state);
     }, Diverreur);
@@ -94,9 +99,20 @@ const inputSearch = document.getElementById("search");
 function appliquerFiltres() {
     filters(selectPriorityy.value, selectAssignee.value, inputSearch.value, afficherCards, Diverreur);
 }
-selectPriorityy.addEventListener("change", appliquerFiltres);
-selectAssignee.addEventListener("change", appliquerFiltres);
-inputSearch.addEventListener("input", appliquerFiltres);
+selectPriorityy.addEventListener("change", () => {
+    priority(selectPriorityy.value);
+    appliquerFiltres();
+}
+);
+selectAssignee.addEventListener("change", () => {
+    appliquerFiltres();
+    assignee(selectAssignee.value);
+}
+);
+inputSearch.addEventListener("input", () => {
+    appliquerFiltres();
+    title(inputSearch.value);
+});
 const btnRénitialiser = document.getElementById("btnRénitialiser");
 
 btnRénitialiser.addEventListener("click", () => {
@@ -105,13 +121,9 @@ btnRénitialiser.addEventListener("click", () => {
     selectPriorityy.value = "";
     loadCards(afficherCards, Diverreur);
 });
-// const btnModifier = document.querySelectorAll('[data-id]');
-// console.log(btnModifier);
-// const btnModifier = document.querySelectorAll("button[data-id]");
-// console.log("btnModifier",btnModifier);
 let Card = null;
 document.addEventListener("click", async (e) => {
-    
+
     let btnEditClick = e.target.closest(".btnModifier");
     if (btnEditClick) {
         // console.log(e.target.dataset.id);
@@ -231,7 +243,7 @@ confirmBtn.addEventListener("click", async (e) => {
     try {
         // console.log(idCardDelete);
         errorMessage.textContent = "Une erreur est survenue lors du chargement des cartes."
-        errorMessage.hidden = true ;
+        errorMessage.hidden = true;
         changeStateDelete(idCardDelete);
         await SupprimerCard(idCardDelete);
         // // console.log(state);
@@ -242,7 +254,7 @@ confirmBtn.addEventListener("click", async (e) => {
         modalDelete.close();
         console.log(error);
         errorMessage.textContent = "Une erreur est survenue lors du suppression  des cartes."
-        errorMessage.hidden = false ;
+        errorMessage.hidden = false;
     }
 
 });
