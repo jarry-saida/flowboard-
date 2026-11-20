@@ -20,6 +20,9 @@
                 Organisez vos tâches simplement
             </span>
         </div>
+        <button type="button" class="rounded-2xl bg-gray-800 px-5 py-3 text-sm " id="changeTheme">
+            Theme
+        </button>
 
         <button type="button" class="rounded bg-blue-600 px-5 py-3 text-sm text-white hover:bg-blue-700" id="openModal">
             + Nouvelle carte
@@ -74,7 +77,7 @@
         <div id="DivErreur" hidden>
 
         </div>
-        <p id="errorMessage" hidden class="error-message text-red-600 mb-3"></p>                
+        <p id="errorMessage" hidden class="error-message text-red-600 mb-3"></p>
         <section class="flex flex-wrap items-start gap-5">
 
             <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4">
@@ -203,15 +206,17 @@
                 </div>
             </div>
             <dialog id="modalDelete" class="w-full max-w-xl rounded-xl">
-            <div id="deleteModal" class="modal  bg-red-500 rounded-xl ">
-                <div class="modal-content text-white px-6 py-5 rounded-t-xl">
-                    <h3 class="text-2xl">Confirmer la suppression</h3>
-                    <p class="text-white text-sm mt-1">Voulez-vous vraiment supprimer cette carte ?</p>
+                <div id="deleteModal" class="modal  bg-red-500 rounded-xl ">
+                    <div class="modal-content text-white px-6 py-5 rounded-t-xl">
+                        <h3 class="text-2xl">Confirmer la suppression</h3>
+                        <p class="text-white text-sm mt-1">Voulez-vous vraiment supprimer cette carte ?</p>
 
-                    <button id="cancelDelete" class="px-5 py-3 border border-slate-300 rounded-lg  text-white ">Annuler</button>
-                    <button id="confirmDelete" class="px-5 py-3 bg-red-800 text-white rounded-lg " >Supprimer</button>
+                        <button id="cancelDelete"
+                            class="px-5 py-3 border border-slate-300 rounded-lg  text-white ">Annuler</button>
+                        <button id="confirmDelete"
+                            class="px-5 py-3 bg-red-800 text-white rounded-lg ">Supprimer</button>
+                    </div>
                 </div>
-            </div>
 
             </dialog>
 
@@ -329,6 +334,18 @@
 
             </form>
         </div>
+    </dialog>
+    <dialog class="w-full max-w-xl rounded-xl  backdrop:bg-slate-900/50" id="ModalAi">
+        <div id="DivDescriptionAi">
+            <label for="DivDescriptionAi" class="block text-sm  text-slate-700 mb-2">
+                Description
+            </label>
+            <textarea id="description" name="description" placeholder="Décrire la tâche..."
+                class="w-full border border-slate-300 rounded-lg px-4 py-3"></textarea>
+        </div>
+        <button id="confirmAi" class="px-5 py-3 bg-amber-800 text-white rounded-lg ">Générer</button>
+
+
     </dialog>
 
 

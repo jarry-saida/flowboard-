@@ -19,7 +19,9 @@ import { state, setState, changeState, changeStatusState, changeStateDelete, new
     inputTitleSession,
     textareaDescriptionSession,
     selectPrioritySession,
-    selectStatusSession ,textareaDescriptionValue,inputTitleValue,inputTagsValue,inputDateValue,inputAssigneeValue,selectPriorityValue,selectStatusValue} from "./data/store.js";
+    selectStatusSession ,textareaDescriptionValue,inputTitleValue,
+    inputTagsValue,inputDateValue,inputAssigneeValue,selectPriorityValue
+    ,selectStatusValue} from "./data/store.js";
 
 
 
@@ -289,3 +291,14 @@ function SessionStorage() {
 form.addEventListener("input", SessionStorage);
 form.addEventListener("change", SessionStorage);
 // wselt anani ndir get l sessionstorage 
+const BtnchangeTheme = document.querySelector("#changeTheme");
+// console.log(BtnchangeTheme);
+BtnchangeTheme.addEventListener("click",()=>{
+    console.log("html");
+    console.log(document.querySelector('html'));
+    const body = document.querySelector('html');
+    body.classList.toggle("dark");
+
+});
+
+
