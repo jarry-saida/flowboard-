@@ -1,6 +1,6 @@
 import { loadCards, filters, getDataCard, AjouterCardEdit, MoveCard, SupprimerCard } from "./services/cardService.js";
 import { afficherCards, DivTodo, DivInProgress, DivDone } from "./ui/board.js";
-import { Diverreur, ModificationSwal, SupprimerSwal} from "./ui/notifications.js";
+import { Diverreur, ModificationSwal, SupprimerSwal } from "./ui/notifications.js";
 import {
     regexForm,
     inputDate,
@@ -13,11 +13,33 @@ import {
 
 } from "./ui/modal.js";
 
-import { state, setState, changeState, changeStatusState, changeStateDelete, newState } from "./data/store.js";
+import { state, setState, changeState, changeStatusState, changeStateDelete, newState, titleValue, assigneeValue, priorityValue, title, assignee, priority,    inputDateSession,
+    inputTagsSession,
+    inputAssigneeSession,
+    inputTitleSession,
+    textareaDescriptionSession,
+    selectPrioritySession,
+    selectStatusSession ,textareaDescriptionValue,inputTitleValue,
+    inputTagsValue,inputDateValue,inputAssigneeValue,selectPriorityValue
+    ,selectStatusValue} from "./data/store.js";
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
+
+inputSearch.value = titleValue();
+selectAssignee.value = assigneeValue();
+ selectPriorityy.value = priorityValue();
+            inputTitle.value = inputTitleValue();
+            inputAssignee.value = inputAssigneeValue();
+            inputTags.value = inputTagsValue();
+            textareaDescription.value = textareaDescriptionValue();
+            inputDate.value = inputDateValue();
+            selectPriority.value = selectPriorityValue();
+            selectStatus.value = selectStatusValue();
+
+    appliquerFiltres();
+    
     loadCards((cards) => {
         afficherCards(cards);
         // state = cards;
@@ -25,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // console.log(state);
     }, Diverreur);
 });
+
 const DivErreur = document.getElementById("DivErreur");
 
 DivErreur.addEventListener("click", (e) => {
@@ -40,7 +63,8 @@ const dialog = document.getElementById("cardModal");
 const btnEdit = document.getElementById("btn-Edit");
 const btnSubmit = document.getElementById("btnSubmit");
 btnOpenModal.addEventListener("click", () => {
-    form.reset();
+    // form.reset();
+
 
     btnEdit.style.display = "none";
     btnSubmit.style.display = "block";
@@ -51,12 +75,13 @@ btnOpenModal.addEventListener("click", () => {
 const btnCloseModal = document.getElementById("closeModal");
 // console.log(btnCloseModal);
 btnCloseModal.addEventListener("click", () => {
-    form.reset();
+    // form.reset();
+
     dialog.close();
 });
-
 const form = document.getElementById("form");
 // console.log(form);
+
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (regexForm()) {
@@ -74,12 +99,13 @@ form.addEventListener("submit", (e) => {
             priority: selectPriority.value,
             status: selectStatus.value
         };
-        console.log("newcard", newCard);
+
+        // console.log("newcard", newCard);
 
         state.push(newCard);
         // console.log("state",state);
-        form.reset();
         afficherCards(state);
+        // form.reset();
         dialog.close();
     }
 
@@ -94,9 +120,20 @@ const inputSearch = document.getElementById("search");
 function appliquerFiltres() {
     filters(selectPriorityy.value, selectAssignee.value, inputSearch.value, afficherCards, Diverreur);
 }
-selectPriorityy.addEventListener("change", appliquerFiltres);
-selectAssignee.addEventListener("change", appliquerFiltres);
-inputSearch.addEventListener("input", appliquerFiltres);
+selectPriorityy.addEventListener("change", () => {
+    priority(selectPriorityy.value);
+    appliquerFiltres();
+}
+);
+selectAssignee.addEventListener("change", () => {
+    appliquerFiltres();
+    assignee(selectAssignee.value);
+}
+);
+inputSearch.addEventListener("input", () => {
+    appliquerFiltres();
+    title(inputSearch.value);
+});
 const btnRénitialiser = document.getElementById("btnRénitialiser");
 
 btnRénitialiser.addEventListener("click", () => {
@@ -105,13 +142,9 @@ btnRénitialiser.addEventListener("click", () => {
     selectPriorityy.value = "";
     loadCards(afficherCards, Diverreur);
 });
-// const btnModifier = document.querySelectorAll('[data-id]');
-// console.log(btnModifier);
-// const btnModifier = document.querySelectorAll("button[data-id]");
-// console.log("btnModifier",btnModifier);
 let Card = null;
 document.addEventListener("click", async (e) => {
-    
+
     let btnEditClick = e.target.closest(".btnModifier");
     if (btnEditClick) {
         // console.log(e.target.dataset.id);
@@ -231,7 +264,7 @@ confirmBtn.addEventListener("click", async (e) => {
     try {
         // console.log(idCardDelete);
         errorMessage.textContent = "Une erreur est survenue lors du chargement des cartes."
-        errorMessage.hidden = true ;
+        errorMessage.hidden = true;
         changeStateDelete(idCardDelete);
         await SupprimerCard(idCardDelete);
         // // console.log(state);
@@ -242,7 +275,30 @@ confirmBtn.addEventListener("click", async (e) => {
         modalDelete.close();
         console.log(error);
         errorMessage.textContent = "Une erreur est survenue lors du suppression  des cartes."
-        errorMessage.hidden = false ;
+        errorMessage.hidden = false;
     }
 
 });
+function SessionStorage() {
+    inputDateSession(inputDate.value);
+    inputTagsSession(inputTags.value);
+    inputAssigneeSession(inputAssignee.value);
+    inputTitleSession(inputTitle.value);
+    textareaDescriptionSession(textareaDescription.value);
+    selectPrioritySession(selectPriority.value);
+    selectStatusSession(selectStatus.value);
+}
+form.addEventListener("input", SessionStorage);
+form.addEventListener("change", SessionStorage);
+// wselt anani ndir get l sessionstorage 
+const BtnchangeTheme = document.querySelector("#changeTheme");
+// console.log(BtnchangeTheme);
+BtnchangeTheme.addEventListener("click",()=>{
+    console.log("html");
+    console.log(document.querySelector('html'));
+    const body = document.querySelector('html');
+    body.classList.toggle("dark");
+
+});
+
+

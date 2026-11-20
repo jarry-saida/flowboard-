@@ -45,6 +45,10 @@ export function afficherCards(cards) {
                         class="btnSupprimer px-5 py-3 bg-red-800 text-white rounded-lg " data-id = ${cards[i].id}>
                        Supprimer
                     </button>
+                    <button 
+                        class="btnAi px-5 py-3 bg-amber-950 text-white rounded-lg ">
+                       Générer avec l'IA 
+                    </button>
             </article>
 
     `
@@ -78,6 +82,10 @@ export function afficherCards(cards) {
                         class="btnSupprimer px-5 py-3 bg-red-800 text-white rounded-lg " data-id = ${cards[i].id} >
                        Supprimer
                     </button>
+                    <button 
+                        class="btnAi px-5 py-3 bg-amber-950 text-white rounded-lg ">
+                       Générer avec l'IA 
+                    </button>
             </article>
     `
             
@@ -109,6 +117,10 @@ export function afficherCards(cards) {
                                                 <button data-id = ${cards[i].id}
                         class="btnSupprimer px-5 py-3 bg-red-800 text-white rounded-lg " >
                        Supprimer
+                    </button>
+                    <button 
+                        class="btnAi px-5 py-3 bg-amber-950 text-white rounded-lg ">
+                       Générer avec l'IA 
                     </button>
             </article>
     `
