@@ -13,23 +13,39 @@ import {
 
 } from "./ui/modal.js";
 
-import { state, setState, changeState, changeStatusState, changeStateDelete, newState, titleValue, assigneeValue, priorityValue, title, assignee, priority } from "./data/store.js";
+import { state, setState, changeState, changeStatusState, changeStateDelete, newState, titleValue, assigneeValue, priorityValue, title, assignee, priority,    inputDateSession,
+    inputTagsSession,
+    inputAssigneeSession,
+    inputTitleSession,
+    textareaDescriptionSession,
+    selectPrioritySession,
+    selectStatusSession ,textareaDescriptionValue,inputTitleValue,inputTagsValue,inputDateValue,inputAssigneeValue,selectPriorityValue,selectStatusValue} from "./data/store.js";
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    selectPriorityy.value = priorityValue();
-    selectAssignee.value = assigneeValue();
-    inputSearch.value = titleValue();
+
+inputSearch.value = titleValue();
+selectAssignee.value = assigneeValue();
+ selectPriorityy.value = priorityValue();
+            inputTitle.value = inputTitleValue();
+            inputAssignee.value = inputAssigneeValue();
+            inputTags.value = inputTagsValue();
+            textareaDescription.value = textareaDescriptionValue();
+            inputDate.value = inputDateValue();
+            selectPriority.value = selectPriorityValue();
+            selectStatus.value = selectStatusValue();
+
     appliquerFiltres();
+    
     loadCards((cards) => {
         afficherCards(cards);
-        assigneeValue();
-        priorityValue();        // state = cards;
+        // state = cards;
         setState(cards);
         // console.log(state);
     }, Diverreur);
 });
+
 const DivErreur = document.getElementById("DivErreur");
 
 DivErreur.addEventListener("click", (e) => {
@@ -45,7 +61,8 @@ const dialog = document.getElementById("cardModal");
 const btnEdit = document.getElementById("btn-Edit");
 const btnSubmit = document.getElementById("btnSubmit");
 btnOpenModal.addEventListener("click", () => {
-    form.reset();
+    // form.reset();
+
 
     btnEdit.style.display = "none";
     btnSubmit.style.display = "block";
@@ -56,12 +73,13 @@ btnOpenModal.addEventListener("click", () => {
 const btnCloseModal = document.getElementById("closeModal");
 // console.log(btnCloseModal);
 btnCloseModal.addEventListener("click", () => {
-    form.reset();
+    // form.reset();
+
     dialog.close();
 });
-
 const form = document.getElementById("form");
 // console.log(form);
+
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (regexForm()) {
@@ -79,12 +97,13 @@ form.addEventListener("submit", (e) => {
             priority: selectPriority.value,
             status: selectStatus.value
         };
-        console.log("newcard", newCard);
+
+        // console.log("newcard", newCard);
 
         state.push(newCard);
         // console.log("state",state);
-        form.reset();
         afficherCards(state);
+        // form.reset();
         dialog.close();
     }
 
@@ -258,3 +277,15 @@ confirmBtn.addEventListener("click", async (e) => {
     }
 
 });
+function SessionStorage() {
+    inputDateSession(inputDate.value);
+    inputTagsSession(inputTags.value);
+    inputAssigneeSession(inputAssignee.value);
+    inputTitleSession(inputTitle.value);
+    textareaDescriptionSession(textareaDescription.value);
+    selectPrioritySession(selectPriority.value);
+    selectStatusSession(selectStatus.value);
+}
+form.addEventListener("input", SessionStorage);
+form.addEventListener("change", SessionStorage);
+// wselt anani ndir get l sessionstorage 

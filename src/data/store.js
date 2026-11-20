@@ -26,21 +26,71 @@ export function changeStateDelete(idCardDelete) {
 }
 //localestorage
 export function priority(priority) {
-  window.localStorage.setItem("priority", priority);
-    
+    localStorage.setItem("priority", priority);
 }
 export function assignee(assignee) {
-  window.localStorage.setItem("assignee", assignee);
+    localStorage.setItem("assignee", assignee);
 }
 export function title(title_like) {
-   window.localStorage.setItem("title", title_like);
+    localStorage.setItem("title", title_like);
 }
 export function priorityValue() {
-  return window.localStorage.getItem("priority");
+    return localStorage.getItem("priority");
 }
 export function assigneeValue() {
-   return window.localStorage.getItem("assignee");
+    return localStorage.getItem("assignee");
 }
 export function titleValue() {
- return window.localStorage.getItem("title");
+    return localStorage.getItem("title");
+}
+//SessionStorage
+    // inputDate,
+    // inputTags,
+    // inputAssignee,
+    // inputTitle,
+    // textareaDescription,
+    // selectPriority,
+    // selectStatus,
+    // valueTags,valueDate,valueAssignee,valuePriority,valueStatus,valueDescription,valueTitle
+export function inputTitleSession(valueTitle) {
+    sessionStorage.setItem("inputTitle",valueTitle);
+}
+export function inputTagsSession(valueTags) {
+    sessionStorage.setItem("inputTags",valueTags);
+}
+export function inputDateSession(valueDate) {
+    sessionStorage.setItem("inputDate",valueDate);
+}
+export function inputAssigneeSession(valueAssignee) {
+    sessionStorage.setItem("inputAssignee",valueAssignee);
+}
+export function selectPrioritySession(valuePriority) {
+    sessionStorage.setItem("selectPriority",valuePriority);
+}
+export function textareaDescriptionSession(valueDescription) {
+    sessionStorage.setItem("textareaDescription",valueDescription);
+}
+export function selectStatusSession(valueStatus) {
+    sessionStorage.setItem("selectStatus",valueStatus);
+}
+export function textareaDescriptionValue() {
+   return sessionStorage.getItem("textareaDescription");
+}
+export function inputTitleValue() {
+   return sessionStorage.getItem("inputTitle");
+}
+export function inputTagsValue() {
+   return sessionStorage.getItem("inputTags");
+}
+export function inputDateValue() {
+   return sessionStorage.getItem("inputDate");
+}
+export function inputAssigneeValue() {
+   return sessionStorage.getItem("inputAssignee");
+}
+export function selectPriorityValue() {
+   return sessionStorage.getItem("selectPriority");
+}
+export function selectStatusValue() {
+   return sessionStorage.getItem("selectStatus");
 }
