@@ -14,13 +14,7 @@ export function Diverreur() {
         btnRéessayer.className = "bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700";
 
         DivErreur.append(paragraphe, btnRéessayer);
-
-        // btnRéessayer.addEventListener("click", () => {
-        //     DivErreur.hidden = true;
-        //     loadCards(afficherCards, Diverreur);
-        // });
     }
-
     DivErreur.hidden = false;
 }
 export function ModificationSwal() {

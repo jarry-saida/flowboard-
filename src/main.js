@@ -28,6 +28,9 @@ import {
 import apiKey from "./apiKey.js";
 
 
+const DivLoading = document.querySelector("#DivLoading");
+// console.log(DivLoading);
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const theme = localStorage.getItem("theme") || "light";
@@ -44,13 +47,14 @@ document.addEventListener("DOMContentLoaded", () => {
     selectStatus.value = selectStatusValue();
 
     appliquerFiltres();
-
+    DivLoading.hidden = false;
     loadCards((cards) => {
         afficherCards(cards);
         // state = cards;
+        DivLoading.hidden = true;
         setState(cards);
         // console.log(state);
-    }, Diverreur);
+    },Diverreur);
 });
 
 const DivErreur = document.getElementById("DivErreur");
