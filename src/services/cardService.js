@@ -3,6 +3,8 @@ import api from "./api.js";
 export async function loadCards(afficherCards, Diverreur) {
   try {
     const response = await api.get("/cards");
+    // console.log(response.data);
+
     afficherCards(response.data);
   } catch (error) {
     // console.log("Erreur :", error);
@@ -41,15 +43,21 @@ export async function getDataCard(id) {
   return await api.get("/cards/" + id);
 }
 export async function AjouterCardEdit(card) {
-  const response = await api.put(`/cards/${card.id}`,
-    card,
-    {
-      params: {
-        password: "1234"
+  try {
+    const response = await api.put(`/cards/${card.id}`,
+      card,
+      {
+        params: {
+          password: "1234"
+        }
       }
-    }
-  );
-  return response.data;
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error)
+
+  }
+
 }
 export async function MoveCard(idCard, valueStatus) {
 
@@ -78,7 +86,7 @@ export async function MoveCard(idCard, valueStatus) {
 export async function SupprimerCard(idCardDelete) {
   const options = {
     method: 'DELETE',
-    url: 'https://flowboard-api-virid.vercel.app/cards/'+idCardDelete,
+    url: 'https://flowboard-api-virid.vercel.app/cards/' + idCardDelete,
     headers: {
       'X-Workspace': 'public'
     },
@@ -94,4 +102,6 @@ export async function SupprimerCard(idCardDelete) {
     console.error(error)
   }
 }
+
+
 

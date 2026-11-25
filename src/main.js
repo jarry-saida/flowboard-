@@ -1,6 +1,7 @@
 import { loadCards, filters, getDataCard, AjouterCardEdit, MoveCard, SupprimerCard } from "./services/cardService.js";
+import generateCards from "./services/aiService.js";
 import { afficherCards, DivTodo, DivInProgress, DivDone } from "./ui/board.js";
-import { Diverreur, ModificationSwal, SupprimerSwal } from "./ui/notifications.js";
+import { Diverreur, ModificationSwal, SupprimerSwal,GénérationAiSwal,AjouterCardSwal } from "./ui/notifications.js";
 import {
     regexForm,
     inputDate,
@@ -13,33 +14,37 @@ import {
 
 } from "./ui/modal.js";
 
-import { state, setState, changeState, changeStatusState, changeStateDelete, newState, titleValue, assigneeValue, priorityValue, title, assignee, priority,    inputDateSession,
+import {
+    state, setState, changeState, changeStatusState, changeStateDelete, newState, titleValue, assigneeValue, priorityValue, title, assignee, priority, inputDateSession,
     inputTagsSession,
     inputAssigneeSession,
     inputTitleSession,
     textareaDescriptionSession,
     selectPrioritySession,
-    selectStatusSession ,textareaDescriptionValue,inputTitleValue,
-    inputTagsValue,inputDateValue,inputAssigneeValue,selectPriorityValue
-    ,selectStatusValue} from "./data/store.js";
+    selectStatusSession, textareaDescriptionValue, inputTitleValue,
+    inputTagsValue, inputDateValue, inputAssigneeValue, selectPriorityValue
+    , selectStatusValue, changeTheme
+} from "./data/store.js";
+import apiKey from "./apiKey.js";
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
-
-inputSearch.value = titleValue();
-selectAssignee.value = assigneeValue();
- selectPriorityy.value = priorityValue();
-            inputTitle.value = inputTitleValue();
-            inputAssignee.value = inputAssigneeValue();
-            inputTags.value = inputTagsValue();
-            textareaDescription.value = textareaDescriptionValue();
-            inputDate.value = inputDateValue();
-            selectPriority.value = selectPriorityValue();
-            selectStatus.value = selectStatusValue();
+    const theme = localStorage.getItem("theme") || "light";
+    document.querySelector("html").classList.toggle("dark",theme === "dark");
+    inputSearch.value = titleValue();
+    selectAssignee.value = assigneeValue();
+    selectPriorityy.value = priorityValue();
+    inputTitle.value = inputTitleValue();
+    inputAssignee.value = inputAssigneeValue();
+    inputTags.value = inputTagsValue();
+    textareaDescription.value = textareaDescriptionValue();
+    inputDate.value = inputDateValue();
+    selectPriority.value = selectPriorityValue();
+    selectStatus.value = selectStatusValue();
 
     appliquerFiltres();
-    
+
     loadCards((cards) => {
         afficherCards(cards);
         // state = cards;
@@ -63,26 +68,19 @@ const dialog = document.getElementById("cardModal");
 const btnEdit = document.getElementById("btn-Edit");
 const btnSubmit = document.getElementById("btnSubmit");
 btnOpenModal.addEventListener("click", () => {
-    // form.reset();
-
-
     btnEdit.style.display = "none";
     btnSubmit.style.display = "block";
-
+    form.reset();
     dialog.showModal();
-
 });
 const btnCloseModal = document.getElementById("closeModal");
 // console.log(btnCloseModal);
 btnCloseModal.addEventListener("click", () => {
-    // form.reset();
-
     dialog.close();
 });
 const form = document.getElementById("form");
 // console.log(form);
-
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit",(e) => {
     e.preventDefault();
     if (regexForm()) {
 
@@ -99,18 +97,16 @@ form.addEventListener("submit", (e) => {
             priority: selectPriority.value,
             status: selectStatus.value
         };
-
         // console.log("newcard", newCard);
-
         state.push(newCard);
         // console.log("state",state);
+        AjouterCardSwal();
         afficherCards(state);
         // form.reset();
         dialog.close();
     }
 
 });
-
 const selectPriorityy = document.getElementById("priority");
 // console.log(selectPriorityy);
 const selectAssignee = document.getElementById("assignee");
@@ -135,7 +131,6 @@ inputSearch.addEventListener("input", () => {
     title(inputSearch.value);
 });
 const btnRénitialiser = document.getElementById("btnRénitialiser");
-
 btnRénitialiser.addEventListener("click", () => {
     inputSearch.value = "";
     selectAssignee.value = "";
@@ -144,11 +139,9 @@ btnRénitialiser.addEventListener("click", () => {
 });
 let Card = null;
 document.addEventListener("click", async (e) => {
-
     let btnEditClick = e.target.closest(".btnModifier");
     if (btnEditClick) {
         // console.log(e.target.dataset.id);
-        // form.reset();
         inputDate.value = "";
         inputTags.value = "";
         inputAssignee.value = "";
@@ -156,7 +149,6 @@ document.addEventListener("click", async (e) => {
         textareaDescription.value = "";
         selectPriority.value = "";
         selectStatus.value = "";
-
         let idTarget = e.target.dataset.id;
         const { data } = await getDataCard(idTarget);
         Card = data;
@@ -172,10 +164,8 @@ document.addEventListener("click", async (e) => {
         btnEdit.style.display = "block";
         dialog.showModal();
         // console.log(data);
-
     }
 });
-
 btnEdit.addEventListener("click", async (e) => {
 
     if (!regexForm()) {
@@ -194,31 +184,16 @@ btnEdit.addEventListener("click", async (e) => {
     };
     btnEdit.disabled = true;
     btnEdit.textContent = "Modification en cours...";
-
-    try {
-        changeState(state, newData);
-
-        // console.log(Card);
-        console.log(state);
-
-
-        await AjouterCardEdit(Card);
-        // console.log(Card);
-
-        afficherCards(state);
-        ModificationSwal();
-        dialog.close();
-
-    } catch (error) {
-
-        console.log(error);
-
-    } finally {
-        btnEdit.disabled = false;
-        btnEdit.textContent = "Modifier";
-    }
-
-
+    changeState(state, newData);
+    // console.log(Card);
+    console.log(state);
+    await AjouterCardEdit(Card);
+    // console.log(Card);
+    btnEdit.disabled = false;
+    btnEdit.textContent = "Modifier";
+    afficherCards(state);
+    ModificationSwal();
+    dialog.close();
 });
 document.addEventListener("click", async (e) => {
     let targetSelect = e.target.closest("[name=statusEdit]");
@@ -247,20 +222,15 @@ document.addEventListener("click", (e) => {
     idCardDelete = e.target.dataset.id;
     // console.log(idCardDelete);
     if (btnSupprimer) {
-
         modalDelete.showModal();
         modal.classList.remove("hidden");
         errorMessage.textContent = "";
-        // changeStateDelete(idCardDelete);
-        // await  SupprimerCard(idCardDelete);
-        // // console.log(state);
-        // afficherCards(newState);       
     }
 });
 cancelBtn.addEventListener("click", () => {
     modalDelete.close();
 });
-confirmBtn.addEventListener("click", async (e) => {
+confirmBtn.addEventListener("click", async () => {
     try {
         // console.log(idCardDelete);
         errorMessage.textContent = "Une erreur est survenue lors du chargement des cartes."
@@ -290,15 +260,49 @@ function SessionStorage() {
 }
 form.addEventListener("input", SessionStorage);
 form.addEventListener("change", SessionStorage);
-// wselt anani ndir get l sessionstorage 
 const BtnchangeTheme = document.querySelector("#changeTheme");
 // console.log(BtnchangeTheme);
-BtnchangeTheme.addEventListener("click",()=>{
-    console.log("html");
-    console.log(document.querySelector('html'));
-    const body = document.querySelector('html');
-    body.classList.toggle("dark");
-
+BtnchangeTheme.addEventListener("click", () => {
+    const theme = changeTheme();
+    // console.log("theme",theme);
 });
+const ModalAi = document.getElementById("ModalAi");
+// console.log(ModalAi);
+const btnAi = document.querySelector(".btnAi");
+// console.log(btnAi);
+const descriptionValue = document.getElementById("descriptionAi");
+// console.log(descriptionValue);
+const countAi = document.getElementById("countAi");
+// console.log(Number(countAi.value));
+// console.log(countAi);
+const BtnconfirmAi = document.getElementById("confirmAi");
+// console.log(BtnconfirmAi);
+const formAi = document.querySelector("#formAi");
+// console.log(formAi);
+formAi.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    // console.log(typeof countAi);
+    // console.log(Number(countAi.value));
+    BtnconfirmAi.disabled = true;
+    BtnconfirmAi.textContent = "Génération en cours… ";
+    await generateCards(descriptionValue.value, Number(countAi.value), apiKey);
+    BtnconfirmAi.disabled = false;
+    BtnconfirmAi.textContent = "Générer";
+    afficherCards(state);
+    // console.log(state);
+    GénérationAiSwal(countAi.value);
+    ModalAi.close();
+});
+const BtnannulerAi = document.querySelector("#annulerAi");
+// console.log(BtnannulerAi);
+BtnannulerAi.addEventListener("click", () => {
+    ModalAi.close();
+});
+btnAi.addEventListener("click", () => {
+    ModalAi.showModal();
+});
+
+
+
 
 

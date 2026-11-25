@@ -39,6 +39,22 @@ export function SupprimerSwal() {
             confirmButtonColor: "#394832"
         });
 }
+export function GénérationAiSwal(count) {
+        Swal.fire({
+            title: "Génération de " + count + " carte(s) réussie !",
+            icon: "success",
+            confirmButtonText: "Annuler",
+            confirmButtonColor: "#394832"
+        });
+}
+export function AjouterCardSwal() {
+        Swal.fire({
+            title: "Carte ajouter!",
+            icon: "success",
+            confirmButtonText: "Annuler",
+            confirmButtonColor: "#394832"
+        });
+}
 
 
 

@@ -19,7 +19,7 @@ export function afficherCards(cards) {
         if (cards[i].status === "todo") {
 
             DivTodo.innerHTML += `
-            <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
+            <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm dark:text-white dark:bg-slate-700">
                 <h3 class=" text-slate-800">${cards[i].title}</h3>
                  <p class="text-sm text-slate-500">${cards[i].description}</p>
                  <div class="flex items-center justify-between gap-2">
@@ -35,7 +35,7 @@ export function afficherCards(cards) {
                        Modifier
                     </button>
                         <select  name="statusEdit" data-id = ${cards[i].id}
-                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white">
+                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white dark:bg-slate-700 dark:text-white">
                             <option value="" selected disabled>changement de status</option>
                             <option value="todo">todo</option>
                             <option value="in-progress">in-progress</option>
@@ -45,10 +45,6 @@ export function afficherCards(cards) {
                         class="btnSupprimer px-5 py-3 bg-red-800 text-white rounded-lg " data-id = ${cards[i].id}>
                        Supprimer
                     </button>
-                    <button 
-                        class="btnAi px-5 py-3 bg-amber-950 text-white rounded-lg ">
-                       Générer avec l'IA 
-                    </button>
             </article>
 
     `
@@ -56,7 +52,7 @@ export function afficherCards(cards) {
         } else if (cards[i].status === "in-progress") {
 
             DivInProgress.innerHTML += `
-            <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
+            <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm dark:text-white dark:bg-slate-700">
                 <h3 class=" text-slate-800">${cards[i].title}</h3>
                  <p class="text-sm text-slate-500">${cards[i].description}</p>
                  <div class="flex items-center justify-between gap-2">
@@ -72,7 +68,7 @@ export function afficherCards(cards) {
                        Modifier
                     </button>
                                             <select  name="statusEdit" data-id = ${cards[i].id}
-                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white">
+                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white dark:bg-slate-700 dark:text-white">
                             <option value="" selected disabled >changement de status</option>
                             <option value="todo">todo</option>
                             <option value="in-progress">in-progress</option>
@@ -82,17 +78,13 @@ export function afficherCards(cards) {
                         class="btnSupprimer px-5 py-3 bg-red-800 text-white rounded-lg " data-id = ${cards[i].id} >
                        Supprimer
                     </button>
-                    <button 
-                        class="btnAi px-5 py-3 bg-amber-950 text-white rounded-lg ">
-                       Générer avec l'IA 
-                    </button>
             </article>
     `
             
         } else {
 
             DivDone.innerHTML += `
-            <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
+            <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm dark:text-white dark:bg-slate-700">
                 <h3 class=" text-slate-800">${cards[i].title}</h3>
                  <p class="text-sm text-slate-500">${cards[i].description}</p>
                  <div class="flex items-center justify-between gap-2">
@@ -108,7 +100,7 @@ export function afficherCards(cards) {
                        Modifier
             </button>
                         <select  name="statusEdit" data-id = ${cards[i].id}
-                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white">
+                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white dark:bg-slate-700 dark:text-white">
                             <option value="" selected disabled >changement de status</option>
                             <option value="todo">todo</option>
                             <option value="in-progress">in-progress</option>
@@ -117,10 +109,6 @@ export function afficherCards(cards) {
                                                 <button data-id = ${cards[i].id}
                         class="btnSupprimer px-5 py-3 bg-red-800 text-white rounded-lg " >
                        Supprimer
-                    </button>
-                    <button 
-                        class="btnAi px-5 py-3 bg-amber-950 text-white rounded-lg ">
-                       Générer avec l'IA 
                     </button>
             </article>
     `

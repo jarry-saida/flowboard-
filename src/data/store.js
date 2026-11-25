@@ -44,53 +44,71 @@ export function titleValue() {
     return localStorage.getItem("title");
 }
 //SessionStorage
-    // inputDate,
-    // inputTags,
-    // inputAssignee,
-    // inputTitle,
-    // textareaDescription,
-    // selectPriority,
-    // selectStatus,
-    // valueTags,valueDate,valueAssignee,valuePriority,valueStatus,valueDescription,valueTitle
+// inputDate,
+// inputTags,
+// inputAssignee,
+// inputTitle,
+// textareaDescription,
+// selectPriority,
+// selectStatus,
+// valueTags,valueDate,valueAssignee,valuePriority,valueStatus,valueDescription,valueTitle
 export function inputTitleSession(valueTitle) {
-    sessionStorage.setItem("inputTitle",valueTitle);
+    sessionStorage.setItem("inputTitle", valueTitle);
 }
 export function inputTagsSession(valueTags) {
-    sessionStorage.setItem("inputTags",valueTags);
+    sessionStorage.setItem("inputTags", valueTags);
 }
 export function inputDateSession(valueDate) {
-    sessionStorage.setItem("inputDate",valueDate);
+    sessionStorage.setItem("inputDate", valueDate);
 }
 export function inputAssigneeSession(valueAssignee) {
-    sessionStorage.setItem("inputAssignee",valueAssignee);
+    sessionStorage.setItem("inputAssignee", valueAssignee);
 }
 export function selectPrioritySession(valuePriority) {
-    sessionStorage.setItem("selectPriority",valuePriority);
+    sessionStorage.setItem("selectPriority", valuePriority);
 }
 export function textareaDescriptionSession(valueDescription) {
-    sessionStorage.setItem("textareaDescription",valueDescription);
+    sessionStorage.setItem("textareaDescription", valueDescription);
 }
 export function selectStatusSession(valueStatus) {
-    sessionStorage.setItem("selectStatus",valueStatus);
+    sessionStorage.setItem("selectStatus", valueStatus);
 }
 export function textareaDescriptionValue() {
-   return sessionStorage.getItem("textareaDescription");
+    return sessionStorage.getItem("textareaDescription");
 }
 export function inputTitleValue() {
-   return sessionStorage.getItem("inputTitle");
+    return sessionStorage.getItem("inputTitle");
 }
 export function inputTagsValue() {
-   return sessionStorage.getItem("inputTags");
+    return sessionStorage.getItem("inputTags");
 }
 export function inputDateValue() {
-   return sessionStorage.getItem("inputDate");
+    return sessionStorage.getItem("inputDate");
 }
 export function inputAssigneeValue() {
-   return sessionStorage.getItem("inputAssignee");
+    return sessionStorage.getItem("inputAssignee");
 }
 export function selectPriorityValue() {
-   return sessionStorage.getItem("selectPriority");
+    return sessionStorage.getItem("selectPriority");
 }
 export function selectStatusValue() {
-   return sessionStorage.getItem("selectStatus");
+    return sessionStorage.getItem("selectStatus");
 }
+export function changeTheme() {
+
+    const ThemeMaintenant = localStorage.getItem("theme") || "light";
+    // console.log(ThemeMaintenant);
+    
+    let newTheme;
+
+    if (ThemeMaintenant === "light") {
+        newTheme = "dark";
+    } else {
+        newTheme = "light";
+    }
+    // console.log(newTheme);
+    document.querySelector("html").classList.toggle("dark", newTheme === "dark");
+    localStorage.setItem("theme", newTheme);
+    return newTheme;
+}
+
