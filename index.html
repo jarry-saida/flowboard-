@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./output.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>FlowBoard</title>
 </head>
 
-<body class="m-0 min-h-screen flex flex-col bg-slate-100">
+<body class="m-0 min-h-screen flex flex-col bg-slate-100 dark:bg-slate-950">
 
     <header class="flex items-center justify-between bg-blue-950 p-5">
 
@@ -19,24 +20,32 @@
                 Organisez vos tâches simplement
             </span>
         </div>
+        <button type="button" class="rounded-2xl bg-gray-800 px-5 py-3 text-sm " id="changeTheme">
+            Theme
+        </button>
 
         <button type="button" class="rounded bg-blue-600 px-5 py-3 text-sm text-white hover:bg-blue-700" id="openModal">
             + Nouvelle carte
+        </button>
+        <button class="btnAi px-5 py-3 bg-amber-950 text-white rounded-lg ">
+            Générer avec l'IA
         </button>
 
     </header>
     <main class="flex flex-col gap-6 p-5">
 
-        <section class="flex flex-wrap items-end justify-between gap-4 rounded-lg bg-white p-5 shadow-sm">
+        <section
+            class="flex flex-wrap items-end justify-between gap-4 rounded-lg bg-white p-5 shadow-sm dark:bg-slate-800 ">
 
             <div>
-                <h2 class=" text-slate-800">Filtres</h2>
-                <span class="text-xs text-slate-500">Filtrer les tâches</span>
+                <h2 class=" text-slate-800  dark:text-white ">Filtres</h2>
+                <span class="text-xs text-slate-500 dark:text-slate-300">Filtrer les tâches</span>
             </div>
 
             <div class="flex flex-1 flex-col gap-2 min-w-40">
-                <label for="priority" class="text-sm text-slate-700">Priorité :</label>
-                <select id="priority" name="priority" class="rounded border border-slate-300 p-2 text-sm">
+                <label for="priority" class="text-sm text-slate-700 dark:text-white">Priorité :</label>
+                <select id="priority" name="priority"
+                    class="rounded border border-slate-300 p-2 text-sm dark:bg-slate-700 dark:text-white">
                     <option value="">Toutes priorités</option>
                     <option value="high">High</option>
                     <option value="medium">Medium</option>
@@ -45,8 +54,9 @@
             </div>
 
             <div class="flex flex-1 flex-col gap-2 min-w-40">
-                <label for="assignee" class="text-sm text-slate-700">Assigné :</label>
-                <select id="assignee" name="assignee" class="rounded border border-slate-300 p-2 text-sm">
+                <label for="assignee" class="text-sm text-slate-700 dark:text-white">Assigné :</label>
+                <select id="assignee" name="assignee"
+                    class="rounded border border-slate-300 p-2 text-sm dark:bg-slate-700 dark:text-white">
                     <option value="">Tous assignés</option>
                     <option value="Amina Haddad">Amina Haddad</option>
                     <option value="Lucas Martin">Lucas Martin</option>
@@ -58,30 +68,33 @@
             </div>
 
             <div class="flex flex-1 flex-col gap-2 min-w-40">
-                <label for="search" class="text-sm text-slate-700">Recherche :</label>
+                <label for="search" class="text-sm text-slate-700 dark:text-white">Recherche :</label>
                 <input type="search" id="search" placeholder="Rechercher une tâche..."
-                    class="rounded border border-slate-300 p-2 text-sm">
+                    class="rounded border border-slate-300 p-2 text-sm dark:bg-slate-700 dark:text-white">
             </div>
 
-            <button type="button" class="rounded border border-slate-300 px-4 py-2 text-sm hover:bg-slate-100" id="btnRénitialiser">
+            <button type="button"
+                class="rounded border border-slate-300 px-4 py-2 text-sm hover:bg-slate-100  dark:text-white"
+                id="btnRénitialiser">
                 Réinitialiser
             </button>
 
         </section>
-        
+
         <div id="DivErreur" hidden>
 
         </div>
+        <p id="errorMessage" hidden class="error-message text-red-600 mb-3"></p>
         <section class="flex flex-wrap items-start gap-5">
 
-            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" >
+            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4  dark:bg-gray-600">
 
                 <div class="flex items-center justify-between">
-                    <h2 class=" text-slate-800">Todo</h2>
+                    <h2 class=" text-slate-800 dark:text-white">Todo</h2>
                     <span class="rounded-full bg-white px-3 py-1 text-xs " id="countTodo"></span>
                 </div>
 
-                <div class="flex flex-col gap-3" id="DivTodo"> 
+                <div class="flex flex-col gap-3" id="DivTodo">
 
                     <!-- <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
 
@@ -114,18 +127,20 @@
 
                     </article> -->
 
+
                 </div>
+
             </div>
 
-            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" >
+            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4  dark:bg-gray-600">
 
                 <div class="flex items-center justify-between">
-                    <h2 class=" text-slate-800">In Progress</h2>
+                    <h2 class=" text-slate-800 dark:text-white">In Progress</h2>
                     <span class="rounded-full bg-white px-3 py-1 text-xs " id="countInProgress"></span>
                 </div>
 
                 <div class="flex flex-col gap-3" id="DivInProgress">
-<!-- 
+                    <!-- 
                     <article class="flex flex-col gap-3 rounded-lg bg-white p-4 shadow-sm">
 
                         <h3 class=" text-slate-800">
@@ -155,14 +170,14 @@
                         </div>
 
                     </article> -->
+                </div>
 
-                </div> 
             </div>
 
-            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4" >
+            <div class="flex min-w-64 flex-1 flex-col gap-4 rounded-lg bg-slate-200 p-4  dark:bg-gray-600">
 
                 <div class="flex items-center justify-between">
-                    <h2 class=" text-slate-800">Done</h2>
+                    <h2 class=" text-slate-800 dark:text-white">Done</h2>
                     <span class="rounded-full bg-white px-3 py-1 text-xs " id="countDone"></span>
                 </div>
 
@@ -198,21 +213,38 @@
 
                     </article> -->
 
-                </div> 
+                </div>
+
             </div>
+            <dialog id="modalDelete" class="w-full max-w-xl rounded-xl">
+                <div id="deleteModal" class="modal  bg-red-500 rounded-xl ">
+                    <div class="modal-content text-white px-6 py-5 rounded-t-xl">
+                        <h3 class="text-2xl">Confirmer la suppression</h3>
+                        <p class="text-white text-sm mt-1">Voulez-vous vraiment supprimer cette carte ?</p>
+
+                        <button id="cancelDelete"
+                            class="px-5 py-3 border border-slate-300 rounded-lg  text-white">Annuler</button>
+                        <button id="confirmDelete"
+                            class="px-5 py-3 bg-red-800 text-white rounded-lg ">Supprimer</button>
+                    </div>
+                </div>
+
+            </dialog>
+
 
         </section>
 
     </main>
-    <footer class="mt-auto border-t bg-white p-4 text-center text-xs text-slate-500">
+    <footer
+        class="mt-auto border-t bg-white p-4 text-center text-xs text-slate-500 dark:border-slate-700 dark:bg-slate-900">
         © 2026 FlowBoard - Gestion des tâches
     </footer>
     <!-- Modal -->
     <dialog id="cardModal" class="w-full max-w-xl rounded-xl  backdrop:bg-slate-900/50">
-        <div class="bg-white rounded-xl ">
+        <div class="bg-white rounded-xl dark:bg-slate-800 ">
 
             <div class="bg-blue-950 text-white px-6 py-5 rounded-t-xl">
-                <h2 class="text-2xl">Nouvelle carte</h2>
+                <h2 class="text-2xl ">Nouvelle carte</h2>
                 <p class="text-blue-200 text-sm mt-1">
                     Remplissez les informations de la tâche
                 </p>
@@ -221,31 +253,31 @@
             <form id="form" class="p-6 space-y-4">
 
                 <div id="DivTitle">
-                    <label for="title" class="block text-sm  text-slate-700 mb-2">
+                    <label for="title" class="block text-sm  text-slate-700 mb-2 dark:text-white">
                         Titre
                     </label>
-                    <input type="text" id="title" name="title" placeholder="Ex : Gérer l'état de chargement"  
+                    <input type="text" id="title" name="title" placeholder="Ex : Gérer l'état de chargement"
                         minlength="3" maxlength="100"
-                        class="w-full border border-slate-300 rounded-lg px-4 py-3">
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3 dark:bg-slate-700 dark:text-white">
                 </div>
 
                 <div id="DivDescription">
-                    <label for="description" class="block text-sm  text-slate-700 mb-2">
+                    <label for="description" class="block text-sm  text-slate-700 mb-2 dark:text-white">
                         Description
                     </label>
-                    <textarea id="description" name="description" placeholder="Décrire la tâche..."  
-                        class="w-full border border-slate-300 rounded-lg px-4 py-3"></textarea>
+                    <textarea id="description" name="description" placeholder="Décrire la tâche..."
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3  dark:text-white"></textarea>
                 </div>
 
-                <div  class="flex gap-4">
+                <div class="flex gap-4">
 
                     <div class="flex-1" id="DivStatus">
-                        <label for="status" class="block text-sm  text-slate-700 mb-2">
+                        <label for="status" class="block text-sm  text-slate-700 mb-2 dark:text-white">
                             Statut
                         </label>
-                        <select id="status" name="status"  
-                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white">
-                            <option value=""  selected disabled>choisir un choix</option>
+                        <select id="status" name="status"
+                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white dark:bg-slate-700 dark:text-white">
+                            <option value="" selected disabled>choisir un choix</option>
                             <option value="todo">todo</option>
                             <option value="in-progress">in-progress</option>
                             <option value="done">done</option>
@@ -253,11 +285,11 @@
                     </div>
 
                     <div class="flex-1" id="DivPriority">
-                        <label for="priority" class="block text-sm  text-slate-700 mb-2">
+                        <label for="priority" class="block text-sm  text-slate-700 mb-2 dark:text-white">
                             Priorité
                         </label>
-                        <select id="priorityy" name="priority"  
-                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white ">
+                        <select id="priorityy" name="priorityAdd"
+                            class="w-full border border-slate-300 rounded-lg px-3 py-3 bg-white dark:bg-slate-700 dark:text-white">
                             <option value="" disabled selected>choisir un choix</option>
                             <option value="low">low</option>
                             <option value="medium">medium</option>
@@ -268,48 +300,76 @@
                 </div>
 
                 <div id="DivAssignee">
-                    <label for="assigneeAdd" class="block text-sm  text-slate-700 mb-2">
+                    <label for="assigneeAdd" class="block text-sm  text-slate-700 mb-2 dark:text-white">
                         Assigné à
                     </label>
-                    <input type="text" id="assigneeAdd" name="assigneeAdd" placeholder="Ex : Inès Moreau"  
-                        class="w-full border border-slate-300 rounded-lg px-4 py-3">
+                    <input type="text" id="assigneeAdd" name="assigneeAdd" placeholder="Ex : Inès Moreau"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3 dark:bg-slate-700 dark:text-white">
                 </div>
 
                 <div id="DivDate">
-                    <label for="dueDate" class="block text-sm  text-slate-700 mb-2">
+                    <label for="dueDate" class="block text-sm  text-slate-700 mb-2 dark:text-white">
                         Date d'échéance
                     </label>
-                    <input type="date" id="dueDate" name="dueDate"  
-                        class="w-full border border-slate-300 rounded-lg px-4 py-3 ">
+                    <input type="date" id="dueDate" name="dueDate"
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3 dark:bg-slate-700 dark:text-white">
                 </div>
 
                 <div id="DivTags">
-                    <label for="tags" class="block text-sm  text-slate-700 mb-2">
+                    <label for="tags" class="block text-sm  text-slate-700 mb-2 dark:text-white">
                         Tags
                     </label>
                     <input type="text" id="tags" name="tags" placeholder="Ex : front, ux, backend"
-                        class="w-full border border-slate-300 rounded-lg px-4 py-3">
+                        class="w-full border border-slate-300 rounded-lg px-4 py-3 dark:bg-slate-700 dark:text-white">
                     <p class="text-xs text-slate-500 mt-1">
                         Séparez les tags par des virgules.
                     </p>
                 </div>
 
-                <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
+                <div class="flex justify-end gap-3 pt-4 border-t border-slate-200" id="DivButton">
 
                     <button type="button" id="closeModal"
-                        class="px-5 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-100 ">
+                        class="px-5 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-100 dark:text-white">
                         Annuler
                     </button>
 
-                    <button type="submit"
-                        class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg " id="btnSubmit">
+                    <button type="submit" class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg "
+                        id="btnSubmit">
                         Ajouter la carte
                     </button>
+                    <button type="button" class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg "
+                        id="btn-Edit">
+                        Update
+                    </button>
+
 
                 </div>
 
             </form>
         </div>
+    </dialog>
+    <dialog class="w-full max-w-xl rounded-xl  backdrop:bg-slate-900/50 dark:bg-black" id="ModalAi">
+        <form id="formAi">
+
+            <div id="DivDescriptionAi">
+                <label for="DivDescriptionAi" class="block text-sm  text-slate-700 mb-2 dark:text-white">
+                    Description
+                </label>
+                <textarea id="descriptionAi" name="description" placeholder="Décrire la tâche..." minlength="20"
+                    maxlength="1000"
+                    class="w-full border border-slate-300 rounded-lg px-4 py-3  dark:text-white  dark:bg-gray-500"
+                    required></textarea>
+            </div>
+            <label for="countAi" class="block text-sm  text-slate-700 mb-2 dark:text-white">
+                Nombre de tâches
+            </label>
+            <input type="number" id="countAi" name="countAi"
+                class="w-full border border-slate-300 rounded-lg px-4 py-3 dark:text-white dark:bg-gray-500" required>
+            <button type="submit" id="confirmAi"
+                class="px-5 py-3 bg-amber-800 text-white rounded-lg dark:text-white">Générer</button>
+            <button id="annulerAi"
+                class="px-5 py-3 bg-black text-white rounded-lg dark:text-white dark:bg-gray-700">Annuler</button>
+        </form>
     </dialog>
 
 
