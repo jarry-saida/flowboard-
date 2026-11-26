@@ -157,3 +157,41 @@ export function regexForm() {
     const tags = regexTags();
     return title && description && status && priority && assignee && date && tags;
 }
+export const DivDescriptionAi = document.querySelector("#DivDescriptionAi");
+// console.log(DivDescriptionAi);
+export const textareaDescriptionAi = document.getElementById("descriptionAi");
+// console.log(textareaDescriptionAi);
+export function regexDescriptionAi() {
+    const regexDescriptionAi = /^[\s\S]{20,1000}$/;
+    const valueDescriptionAi = textareaDescriptionAi.value;
+    if (regexDescriptionAi.test(valueDescriptionAi)) {
+        DivDescriptionAi.querySelector("span")?.remove();
+        return true;
+    } else {
+        DivDescriptionAi.querySelector("span")?.remove();
+        const span = document.createElement("span");
+        span.textContent = "Vous avez entrer une description invalide";
+        span.style.color = "red";
+        DivDescriptionAi.appendChild(span);
+        return false;
+    }
+}
+export const inputCountAi = document.querySelector("#countAi");
+// console.log(inputCountAi);
+export const DivCountAi = document.getElementById("DivCountAi");
+// console.log(DivCountAi);
+export function regexCountAi() {
+    const regexCountAi =  /^(?:[1-9]|10)$/;
+    const valueCountAi = inputCountAi.value;
+    if (regexCountAi.test(valueCountAi)) {
+        DivCountAi.querySelector("span")?.remove();
+        return true;
+    } else {
+        DivCountAi.querySelector("span")?.remove();
+        const span = document.createElement("span");
+        span.textContent = "Vous avez entrer un nombre invalide";
+        span.style.color = "red";
+        DivCountAi.appendChild(span);
+        return false;
+    }
+}

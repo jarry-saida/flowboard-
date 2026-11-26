@@ -1,7 +1,7 @@
 import { loadCards, filters, getDataCard, AjouterCardEdit, MoveCard, SupprimerCard } from "./services/cardService.js";
 import generateCards from "./services/aiService.js";
 import { afficherCards, DivTodo, DivInProgress, DivDone } from "./ui/board.js";
-import { Diverreur, ModificationSwal, SupprimerSwal,GénérationAiSwal,AjouterCardSwal } from "./ui/notifications.js";
+import { Diverreur, ModificationSwal, SupprimerSwal, GénérationAiSwal, AjouterCardSwal } from "./ui/notifications.js";
 import {
     regexForm,
     inputDate,
@@ -11,7 +11,7 @@ import {
     textareaDescription,
     selectPriority,
     selectStatus,
-
+    regexDescriptionAi,regexCountAi
 } from "./ui/modal.js";
 
 import {
@@ -34,7 +34,7 @@ const DivLoading = document.querySelector("#DivLoading");
 
 document.addEventListener("DOMContentLoaded", () => {
     const theme = localStorage.getItem("theme") || "light";
-    document.querySelector("html").classList.toggle("dark",theme === "dark");
+    document.querySelector("html").classList.toggle("dark", theme === "dark");
     inputSearch.value = titleValue();
     selectAssignee.value = assigneeValue();
     selectPriorityy.value = priorityValue();
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         DivLoading.hidden = true;
         setState(cards);
         // console.log(state);
-    },Diverreur);
+    }, Diverreur);
 });
 
 const DivErreur = document.getElementById("DivErreur");
@@ -84,7 +84,7 @@ btnCloseModal.addEventListener("click", () => {
 });
 const form = document.getElementById("form");
 // console.log(form);
-form.addEventListener("submit",(e) => {
+form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (regexForm()) {
 
@@ -287,15 +287,17 @@ formAi.addEventListener("submit", async (e) => {
     e.preventDefault();
     // console.log(typeof countAi);
     // console.log(Number(countAi.value));
-    BtnconfirmAi.disabled = true;
-    BtnconfirmAi.textContent = "Génération en cours… ";
-    await generateCards(descriptionValue.value, Number(countAi.value), apiKey);
-    BtnconfirmAi.disabled = false;
-    BtnconfirmAi.textContent = "Générer";
-    afficherCards(state);
-    // console.log(state);
-    GénérationAiSwal(countAi.value);
-    ModalAi.close();
+    if (regexDescriptionAi() & regexCountAi()) {
+        BtnconfirmAi.disabled = true;
+        BtnconfirmAi.textContent = "Génération en cours… ";
+        await generateCards(descriptionValue.value, Number(countAi.value), apiKey);
+        BtnconfirmAi.disabled = false;
+        BtnconfirmAi.textContent = "Générer";
+        afficherCards(state);
+        // console.log(state);
+        GénérationAiSwal(countAi.value);
+        ModalAi.close();
+    }
 });
 const BtnannulerAi = document.querySelector("#annulerAi");
 // console.log(BtnannulerAi);
